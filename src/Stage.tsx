@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import Card from './Card';
 
@@ -32,6 +34,10 @@ const Stage = () => {
                 <span className='stage__title__options'>...</span>
             </div>
             <Card />
+            <button>
+                <span></span>
+                <FontAwesomeIcon icon={faPlus} />Add a card
+            </button>
         </Wrapper>
     )
 }
