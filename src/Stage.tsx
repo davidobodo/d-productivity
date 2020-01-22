@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -40,6 +40,14 @@ const Wrapper = styled.div`
         border: none;
         outline: none;
         cursor: pointer;
+        width: 100%;
+        text-align: left;
+        padding: 0.5rem 1rem;
+        border-radius: 3px;
+
+        :hover{
+            background-color: #ACACAC;
+        }
 
         svg{
             margin-right: 10px;
@@ -47,7 +55,16 @@ const Wrapper = styled.div`
     }
 `
 
+
+
 const Stage = () => {
+    const [addTask, setAddTask] = useState(false);
+
+    const handleAddTask = () => {
+        setAddTask(!addTask);
+
+    }
+
     return (
         <Wrapper>
             <div className='stage__title'>
@@ -55,8 +72,8 @@ const Stage = () => {
                 <span className='stage__title__options'>...</span>
             </div>
             <Card />
-            <Textarea />
-            <button>
+            <Textarea show={addTask} />
+            <button onClick={handleAddTask}>
                 <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
             </button>
         </Wrapper>
