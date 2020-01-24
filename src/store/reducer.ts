@@ -1,7 +1,9 @@
-const initialState = {
+import { CREATE_TASK } from "./actionTypes";
+import { faTasks } from "@fortawesome/free-solid-svg-icons";
 
-
-};
+interface TaskType {
+    tasks: string[]
+}
 
 interface Action {
     type: string,
@@ -9,10 +11,14 @@ interface Action {
     payload: string,
 }
 
+const initialState = {
+    tasks: []
+}
+
 export default (state = initialState, action: Action) => {
     const { type, error, payload } = action;
     switch (type) {
-        case "ADD_TASK":
+        case CREATE_TASK:
             return {
 
             };

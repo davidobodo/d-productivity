@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { createTask } from '../store/actions';
 
 interface Props {
     show: boolean
@@ -54,13 +56,14 @@ const Wrapper = styled.div<Props>`
 
 const TextArea: React.FunctionComponent<Props> = ({ show }) => {
     const [taskDetails, setTaskDetails] = useState('');
+    const dispatch = useDispatch();
 
     const handleSetTaskDetails = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTaskDetails(event.target.value)
     }
 
     const handleSubmitTask = () => {
-        console.log(taskDetails)
+        dispatch(createTask(taskDetails))
     }
 
     return (

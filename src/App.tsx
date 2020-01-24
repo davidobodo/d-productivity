@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { Provider } from 'react-redux';
 import store from './store/store'
 
-import Stage from './Stage';
+import Stage from './components/Stage';
 
 
 const GlobalStyles = createGlobalStyle`
