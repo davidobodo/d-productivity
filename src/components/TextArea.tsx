@@ -74,7 +74,7 @@ const TextArea: React.FunctionComponent<Props> = ({ handleShowTextArea }) => {
             <div className='controls'>
                 <div>
                     <button onClick={handleSubmitTask}>Add Card</button>
-                    <FontAwesomeIcon icon={faPlus} />
+                    <FontAwesomeIcon icon={faPlus} onClick={handleShowTextArea} />
                 </div>
                 <span>...</span>
             </div>
