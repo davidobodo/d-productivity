@@ -6,8 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { createTask } from '../store/actions';
 
 interface Props {
-    show: boolean,
-    handleShow?: any
+    handleShowTextArea?: any
 }
 
 const Wrapper = styled.div<Props>`
@@ -56,7 +55,7 @@ const Wrapper = styled.div<Props>`
     }
 `
 
-const TextArea: React.FunctionComponent<Props> = ({ show, handleShow }) => {
+const TextArea: React.FunctionComponent<Props> = ({ handleShowTextArea }) => {
     const [taskDetails, setTaskDetails] = useState('');
     const dispatch = useDispatch();
 
@@ -66,12 +65,11 @@ const TextArea: React.FunctionComponent<Props> = ({ show, handleShow }) => {
 
     const handleSubmitTask = () => {
         dispatch(createTask(taskDetails));
-        setTaskDetails('');
-        handleShow();
+        handleShowTextArea();
     }
 
     return (
-        <Wrapper show={show}>
+        <Wrapper>
             <textarea placeholder="Enter a title for this card..." onChange={handleSetTaskDetails}></textarea>
             <div className='controls'>
                 <div>

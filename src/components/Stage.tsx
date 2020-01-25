@@ -79,9 +79,9 @@ const Stage = () => {
                 return <Card task={task} key={i} />
             })}
 
-            {addTask && <Textarea
-                show={addTask}
-                handleShow={handleAddTask} />}
+            {addTask &&
+                <Textarea
+                    handleShowTextArea={handleAddTask} />}
             <button onClick={handleAddTask}>
                 <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
             </button>
