@@ -12,15 +12,15 @@ interface Action {
 }
 
 const initialState = {
-    tasks: []
-}
+};
 
 export default (state = initialState, action: Action) => {
     const { type, error, payload } = action;
     switch (type) {
         case CREATE_TASK:
             return {
-
+                ...state,
+                [payload]: payload
             };
         default:
             return state;
