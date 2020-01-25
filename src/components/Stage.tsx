@@ -68,7 +68,6 @@ const Stage = () => {
     const { task } = useSelector(state => ({
         task: state,
     }), shallowEqual)
-    console.log(task)
 
     return (
         <Wrapper>
@@ -76,8 +75,13 @@ const Stage = () => {
                 <span className='stage__title__header'>Title</span>
                 <span className='stage__title__options'>...</span>
             </div>
-            <Card />
-            <Textarea show={addTask} />
+            {task && Object.values(task).map((task: string, i: number) => {
+                return <Card task={task} key={i} />
+            })}
+
+            <Textarea
+                show={addTask}
+                handleShow={handleAddTask} />
             <button onClick={handleAddTask}>
                 <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
             </button>

@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+interface Props {
+    task: string
+}
+
 const Wrapper = styled.div`
     width: 100%;
     min-height: 5rem;
@@ -17,10 +21,10 @@ const Wrapper = styled.div`
     cursor: pointer;
 `
 
-const Card = () => {
+const Card: React.FunctionComponent<Props> = ({ task }) => {
     return (
         <Wrapper>
-            Hello this is a test
+            {task}
         </Wrapper>
     )
 }

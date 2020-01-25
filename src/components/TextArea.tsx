@@ -6,7 +6,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { createTask } from '../store/actions';
 
 interface Props {
-    show: boolean
+    show: boolean,
+    handleShow?: any
 }
 
 const Wrapper = styled.div<Props>`
@@ -54,7 +55,7 @@ const Wrapper = styled.div<Props>`
     }
 `
 
-const TextArea: React.FunctionComponent<Props> = ({ show }) => {
+const TextArea: React.FunctionComponent<Props> = ({ show, handleShow }) => {
     const [taskDetails, setTaskDetails] = useState('');
     const dispatch = useDispatch();
 
@@ -63,8 +64,11 @@ const TextArea: React.FunctionComponent<Props> = ({ show }) => {
     }
 
     const handleSubmitTask = () => {
-        dispatch(createTask(taskDetails))
+        dispatch(createTask(taskDetails));
+        setTaskDetails('');
+        handleShow();
     }
+    console.log(show)
 
     return (
         <Wrapper show={show}>
