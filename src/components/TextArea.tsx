@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Wrapper = styled.div<Props>`
-    display: ${props => (props.show ? "block" : "none")};
+    display: block;
 
     textarea{
         width: 100%;
@@ -30,6 +30,7 @@ const Wrapper = styled.div<Props>`
 
         ::placeholder{
             color: #000000;
+            opacity: 0.2;
         }
     }
 
@@ -68,7 +69,6 @@ const TextArea: React.FunctionComponent<Props> = ({ show, handleShow }) => {
         setTaskDetails('');
         handleShow();
     }
-    console.log(show)
 
     return (
         <Wrapper show={show}>
