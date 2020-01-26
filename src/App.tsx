@@ -50,7 +50,6 @@ const App = () => {
     task: state,
   }), shallowEqual)
 
-  console.log(task)
 
   return (
     <Fragment>
@@ -61,8 +60,8 @@ const App = () => {
           handleUpdateTextArea={handleSetSectionTitle}
           placeholder='Enter details for this task'
           buttonText='Add Card' />
-        {task && Object.keys(task).map((o, i) => {
-          return <Stage title={o} />
+        {task && Object.keys(task).map((title, i) => {
+          return <Stage title={title} />
         })}
       </Wrapper>
     </Fragment>

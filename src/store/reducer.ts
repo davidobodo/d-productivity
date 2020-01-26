@@ -4,18 +4,20 @@ interface Action {
     type: string,
     error: string,
     payload: string,
+    task: string,
+    title: string,
 }
 
 const initialState = {
 };
 
 export default (state = initialState, action: Action) => {
-    const { type, error, payload } = action;
+    console.log(action)
+    const { type, error, payload, task, title } = action;
     switch (type) {
         case CREATE_TASK:
             return {
                 ...state,
-                [payload]: payload
             };
         case DELETE_TASK:
             return {

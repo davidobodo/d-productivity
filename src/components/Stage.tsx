@@ -75,7 +75,7 @@ const Stage: React.FunctionComponent<Props> = ({ title }) => {
     }
 
     const handleSubmitTask = () => {
-        dispatch(createTask(taskDetails));
+        dispatch(createTask(taskDetails, title));
         handleAddTask();
     }
 
@@ -89,9 +89,9 @@ const Stage: React.FunctionComponent<Props> = ({ title }) => {
                 <span className='stage__title__header'>{title}</span>
                 <span className='stage__title__options'>...</span>
             </div>
-            {task && Object.values(task).map((task: string, i: number) => {
+            {/* {task && Object.values(task).map((task: string, i: number) => {
                 return <Card task={task} key={i} />
-            })}
+            })} */}
 
             {addTask &&
                 <TextArea
