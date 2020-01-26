@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { createTask } from '../store/actions';
 
 import Card from './Card';
 import Textarea from './TextArea';
@@ -60,14 +61,27 @@ const Wrapper = styled.div`
 
 const Stage = () => {
     const [addTask, setAddTask] = useState(false);
+    const [taskDetails, setTaskDetails] = useState('');
+    const dispatch = useDispatch();
 
     const handleAddTask = () => {
         setAddTask(!addTask);
     }
 
+    const handleSetTaskDetails = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setTaskDetails(event.target.value)
+    }
+
+    const handleSubmitTask = () => {
+        dispatch(createTask(taskDetails));
+        handleAddTask();
+    }
+
     const { task } = useSelector(state => ({
         task: state,
     }), shallowEqual)
+
+    console.log(addTask)
 
     return (
         <Wrapper>
@@ -81,7 +95,11 @@ const Stage = () => {
 
             {addTask &&
                 <Textarea
-                    handleShowTextArea={handleAddTask} />}
+                    handleShowTextArea={handleAddTask}
+                    handleSubmitTextArea={handleSubmitTask}
+                    handleUpdateTextArea={handleSetTaskDetails}
+                    placeholder='Enter details for this task'
+                    buttonText='Add Card' />}
             <button onClick={handleAddTask}>
                 <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
             </button>

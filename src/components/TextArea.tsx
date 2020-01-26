@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { createTask } from '../store/actions';
+
 
 interface Props {
-    handleShowTextArea?: any
+    handleShowTextArea?: any,
+    handleSubmitTextArea?: any,
+    handleUpdateTextArea?: any,
+    placeholder?: string,
+    buttonText?: string
 }
 
 const Wrapper = styled.div<Props>`
@@ -55,25 +59,19 @@ const Wrapper = styled.div<Props>`
     }
 `
 
-const TextArea: React.FunctionComponent<Props> = ({ handleShowTextArea }) => {
-    const [taskDetails, setTaskDetails] = useState('');
-    const dispatch = useDispatch();
-
-    const handleSetTaskDetails = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setTaskDetails(event.target.value)
-    }
-
-    const handleSubmitTask = () => {
-        dispatch(createTask(taskDetails));
-        handleShowTextArea();
-    }
-
+const TextArea: React.FunctionComponent<Props> = ({
+    handleShowTextArea,
+    handleSubmitTextArea,
+    handleUpdateTextArea,
+    placeholder,
+    buttonText
+}) => {
     return (
         <Wrapper>
-            <textarea placeholder="Enter a title for this card..." onChange={handleSetTaskDetails} autoFocus></textarea>
+            <textarea placeholder={placeholder} onChange={handleUpdateTextArea} autoFocus></textarea>
             <div className='controls'>
                 <div>
-                    <button onClick={handleSubmitTask}>Add Card</button>
+                    <button onClick={handleSubmitTextArea}>{buttonText}</button>
                     <FontAwesomeIcon icon={faPlus} onClick={handleShowTextArea} />
                 </div>
                 <span>...</span>

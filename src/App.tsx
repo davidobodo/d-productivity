@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from './store/store'
 
 import Stage from './components/Stage';
+import TextArea from './components/TextArea';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -37,6 +38,7 @@ const App = () => {
     <Provider store={store}>
       <GlobalStyles />
       <Wrapper>
+        {/* <TextArea /> */}
         <Stage />
       </Wrapper>
     </Provider>
