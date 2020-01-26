@@ -6,7 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { createTask } from '../store/actions';
 
 import Card from './Card';
-import Textarea from './TextArea';
+import TextArea from './TextArea';
 
 const Wrapper = styled.div`
     width: 300px;
@@ -57,9 +57,11 @@ const Wrapper = styled.div`
     }
 `
 
+interface Props {
+    title?: string
+}
 
-
-const Stage = () => {
+const Stage: React.FunctionComponent<Props> = ({ title }) => {
     const [addTask, setAddTask] = useState(false);
     const [taskDetails, setTaskDetails] = useState('');
     const dispatch = useDispatch();
@@ -81,12 +83,10 @@ const Stage = () => {
         task: state,
     }), shallowEqual)
 
-    console.log(addTask)
-
     return (
         <Wrapper>
             <div className='stage__title'>
-                <span className='stage__title__header'>Title</span>
+                <span className='stage__title__header'>{title}</span>
                 <span className='stage__title__options'>...</span>
             </div>
             {task && Object.values(task).map((task: string, i: number) => {
@@ -94,7 +94,7 @@ const Stage = () => {
             })}
 
             {addTask &&
-                <Textarea
+                <TextArea
                     handleShowTextArea={handleAddTask}
                     handleSubmitTextArea={handleSubmitTask}
                     handleUpdateTextArea={handleSetTaskDetails}

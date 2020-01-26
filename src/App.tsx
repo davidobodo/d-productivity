@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import { useDispatch, useSelector, shallowEqual, } from 'react-redux';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Provider } from 'react-redux';
-import store from './store/store'
 
 import Stage from './components/Stage';
 import TextArea from './components/TextArea';
+
+import { createSection } from './store/actions'
 
 
 const GlobalStyles = createGlobalStyle`
@@ -34,14 +35,37 @@ const Wrapper = styled.div`
   align-items: center;
 `
 const App = () => {
+  const [sectionTitle, setSectionTitle] = useState();
+  const dispatch = useDispatch();
+
+  const handleSetSectionTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setSectionTitle(event.target.value)
+  }
+
+  const handleSubmitSectionTitle = () => {
+    dispatch(createSection(sectionTitle))
+  }
+
+  const { task } = useSelector(state => ({
+    task: state,
+  }), shallowEqual)
+
+  console.log(task)
+
   return (
-    <Provider store={store}>
+    <Fragment>
       <GlobalStyles />
       <Wrapper>
-        {/* <TextArea /> */}
-        <Stage />
+        <TextArea
+          handleSubmitTextArea={handleSubmitSectionTitle}
+          handleUpdateTextArea={handleSetSectionTitle}
+          placeholder='Enter details for this task'
+          buttonText='Add Card' />
+        {task && Object.keys(task).map((o, i) => {
+          return <Stage title={o} />
+        })}
       </Wrapper>
-    </Provider>
+    </Fragment>
   )
 }
 
