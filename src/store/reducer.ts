@@ -1,9 +1,4 @@
-import { CREATE_TASK } from "./actionTypes";
-import { faTasks } from "@fortawesome/free-solid-svg-icons";
-
-interface TaskType {
-    tasks: string[]
-}
+import { CREATE_TASK, DELETE_TASK } from "./actionTypes";
 
 interface Action {
     type: string,
@@ -22,6 +17,10 @@ export default (state = initialState, action: Action) => {
                 ...state,
                 [payload]: payload
             };
+        case DELETE_TASK:
+            return {
+                ...state,
+            }
         default:
             return state;
     }

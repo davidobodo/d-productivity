@@ -1,4 +1,4 @@
-import { CREATE_TASK } from "./actionTypes";
+import { CREATE_TASK, DELETE_TASK } from "./actionTypes";
 
 export const createTask = (payload: string) => {
     return {
@@ -6,3 +6,8 @@ export const createTask = (payload: string) => {
         payload
     }
 }
+
+export const deleteTask = (payload: string) => ({
+    type: 'DELETE_TASK',
+    payload
+})

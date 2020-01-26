@@ -70,7 +70,7 @@ const TextArea: React.FunctionComponent<Props> = ({ handleShowTextArea }) => {
 
     return (
         <Wrapper>
-            <textarea placeholder="Enter a title for this card..." onChange={handleSetTaskDetails}></textarea>
+            <textarea placeholder="Enter a title for this card..." onChange={handleSetTaskDetails} autoFocus></textarea>
             <div className='controls'>
                 <div>
                     <button onClick={handleSubmitTask}>Add Card</button>
