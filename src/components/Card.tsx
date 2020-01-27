@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-    task: string
+    task: string | number
 }
 
 const Wrapper = styled.div`

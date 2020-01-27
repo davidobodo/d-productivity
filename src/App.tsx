@@ -46,9 +46,10 @@ const App = () => {
     dispatch(createSection(sectionTitle))
   }
 
-  const { task } = useSelector(state => ({
-    task: state,
+  const { lists } = useSelector(state => ({
+    lists: state,
   }), shallowEqual)
+
 
 
   return (
@@ -60,8 +61,8 @@ const App = () => {
           handleUpdateTextArea={handleSetSectionTitle}
           placeholder='Enter details for this task'
           buttonText='Add Card' />
-        {task && Object.keys(task).map((title, i) => {
-          return <Stage title={title} />
+        {lists && Object.entries(lists).map((list, i) => {
+          return <Stage title={list[0]} tasks={list[1]} key={i} />
         })}
       </Wrapper>
     </Fragment>

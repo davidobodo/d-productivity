@@ -58,10 +58,11 @@ const Wrapper = styled.div`
 `
 
 interface Props {
-    title?: string
+    title?: string,
+    tasks: Array<string | number>
 }
 
-const Stage: React.FunctionComponent<Props> = ({ title }) => {
+const Stage: React.FunctionComponent<Props> = ({ title, tasks }) => {
     const [addTask, setAddTask] = useState(false);
     const [taskDetails, setTaskDetails] = useState('');
     const dispatch = useDispatch();
@@ -79,9 +80,8 @@ const Stage: React.FunctionComponent<Props> = ({ title }) => {
         handleAddTask();
     }
 
-    const { task } = useSelector(state => ({
-        task: state,
-    }), shallowEqual)
+    console.log(tasks)
+
 
     return (
         <Wrapper>
@@ -89,10 +89,9 @@ const Stage: React.FunctionComponent<Props> = ({ title }) => {
                 <span className='stage__title__header'>{title}</span>
                 <span className='stage__title__options'>...</span>
             </div>
-            {/* {task && Object.values(task).map((task: string, i: number) => {
-                return <Card task={task} key={i} />
-            })} */}
-
+            {tasks && tasks.map((task, i) => {
+                return <Card task={task} />
+            })}
             {addTask &&
                 <TextArea
                     handleShowTextArea={handleAddTask}
