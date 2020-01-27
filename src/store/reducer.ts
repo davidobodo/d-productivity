@@ -1,5 +1,4 @@
 import { CREATE_TASK, DELETE_TASK, CREATE_SECTION } from "./actionTypes";
-import update from "immutability-helper";
 
 interface Action {
     type: string,
