@@ -12,9 +12,9 @@ const Wrapper = styled.div`
     width: 300px;
     color: #000000;
     background-color: #ECECF0;
-    padding: 2rem 1rem 0rem;
+    padding: 1rem 1rem 0rem;
     border-radius: 3px;
-    font-size: 16px;
+    font-size: 15px;
 
     .stage__title{
         display: flex;
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
         }
     }
 
-    button{
+    .btn-add-task{
         font-size: inherit;
         color: #6B778C;
         background-color: transparent;
@@ -84,7 +84,7 @@ const Stage: React.FunctionComponent<Props> = ({ title, tasks }) => {
 
 
     return (
-        <Wrapper>
+        <Wrapper style={{ marginRight: '1rem' }}>
             <div className='stage__title'>
                 <span className='stage__title__header'>{title}</span>
                 <span className='stage__title__options'>...</span>
@@ -99,7 +99,7 @@ const Stage: React.FunctionComponent<Props> = ({ title, tasks }) => {
                     handleUpdateTextArea={handleSetTaskDetails}
                     placeholder='Enter details for this task'
                     buttonText='Add Card' />}
-            <button onClick={handleAddTask}>
+            <button onClick={handleAddTask} className='btn-add-task'>
                 <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
             </button>
         </Wrapper>

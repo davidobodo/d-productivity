@@ -44,7 +44,6 @@ export default (state: State = initialState, action: Action) => {
             return {
                 ...state,
                 [title]: [...state[title], task]
-                // [title]: update(title, { $push: [task] })
             };
         case DELETE_TASK:
             return {

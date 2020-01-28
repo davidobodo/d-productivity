@@ -6,14 +6,14 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 interface Props {
-    handleShowTextArea?: any,
-    handleSubmitTextArea?: any,
-    handleUpdateTextArea?: any,
-    placeholder?: string,
-    buttonText?: string
+    handleShowTextArea: any,
+    handleSubmitTextArea: any,
+    handleUpdateTextArea: any,
+    placeholder: string,
+    buttonText: string
 }
 
-const Wrapper = styled.div<Props>`
+const Wrapper = styled.div`
     display: block;
 
     textarea{
@@ -59,7 +59,7 @@ const Wrapper = styled.div<Props>`
     }
 `
 
-const TextArea: React.FunctionComponent<Props> = ({
+const TextArea: React.FunctionComponent<Partial<Props>> = ({
     handleShowTextArea,
     handleSubmitTextArea,
     handleUpdateTextArea,
