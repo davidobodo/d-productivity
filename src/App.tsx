@@ -31,19 +31,28 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
   height: 100vh;
-  align-items: start;
   padding-top: 5rem;
+  padding-left: 5rem;
+
+  header{
+    font-size: 5rem;
+    color: #ffffff;
+    
+  }
+
+  .cards{
+    display: flex;
+    align-items: start;
 
   .list-title{
     display: flex;
     flex-direction: column;
-    width: 300px;
+    min-width: 300px;
     padding: 0.5rem;
     background-color: #ECECF0;
     border-radius: 3px;
+    margin-right: 1rem;
 
     input{
       border: 2px solid blue;
@@ -82,8 +91,9 @@ const Wrapper = styled.div`
     cursor: pointer;
     text-align: left;
     padding: 1.3rem 1rem 1.3rem 1rem;
-    width: 300px;
+    min-width: 300px;
     border-radius: 3px;
+    margin-right: 1rem;
 
     :hover{
         background-color: #ACACAC;
@@ -92,10 +102,12 @@ const Wrapper = styled.div`
     svg{
         margin-right: 10px;
     }
+  }
 }
 `
 const App = () => {
   const [sectionTitle, setSectionTitle] = useState();
+  const [addList, setAddList] = useState(false);
   const dispatch = useDispatch();
 
   const handleSetSectionTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,35 +116,39 @@ const App = () => {
 
   const handleSubmitSectionTitle = () => {
     dispatch(createSection(sectionTitle))
+    setAddList(false)
   }
 
   const handleAddList = () => {
-
+    setAddList(true)
   }
 
   const { lists } = useSelector(state => ({
     lists: state,
   }), shallowEqual)
 
-
-
   return (
     <Fragment>
       <GlobalStyles />
       <Wrapper>
-        {lists && Object.entries(lists).map((list, i) => {
-          return <Stage title={list[0]} tasks={list[1]} key={i} />
-        })}
-        <div className='list-title' style={{ marginRight: '1rem' }}>
-          <input type="text" placeholder='Enter list title' onChange={handleSetSectionTitle} />
-          <div>
-            <button onClick={handleSubmitSectionTitle}>Add Card</button>
-            <FontAwesomeIcon icon={faPlus} />
-          </div>
+        <header>d-Productivity</header>
+        <div className='cards'>
+          {lists && Object.entries(lists).map((list, i) => {
+            return <Stage title={list[0]} tasks={list[1]} key={i} />
+          })}
+          {addList &&
+            <div className='list-title'>
+              <input type="text" placeholder='Enter list title' onChange={handleSetSectionTitle} autoFocus />
+              <div>
+                <button onClick={handleSubmitSectionTitle}>Add Card</button>
+                <FontAwesomeIcon icon={faPlus} />
+              </div>
+            </div>
+          }
+          <button onClick={handleAddList} className='btn-add-list'>
+            <FontAwesomeIcon icon={faPlus} /><span>Add another List</span>
+          </button>
         </div>
-        <button onClick={handleAddList} className='btn-add-list' style={{ marginRight: '1rem' }}>
-          <FontAwesomeIcon icon={faPlus} /><span>Add another List</span>
-        </button>
       </Wrapper>
     </Fragment>
   )

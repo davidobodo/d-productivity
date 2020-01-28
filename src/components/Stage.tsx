@@ -8,13 +8,14 @@ import { createTask } from '../store/actions';
 import Card from './Card';
 import TextArea from './TextArea';
 
-const Wrapper = styled.div`
-    width: 300px;
+const StageWrapper = styled.div`
+    min-width: 300px;
     color: #000000;
     background-color: #ECECF0;
     padding: 1rem 1rem 0rem;
     border-radius: 3px;
     font-size: 15px;
+    margin-right: 1rem;
 
     .stage__title{
         display: flex;
@@ -84,7 +85,7 @@ const Stage: React.FunctionComponent<Props> = ({ title, tasks }) => {
 
 
     return (
-        <Wrapper style={{ marginRight: '1rem' }}>
+        <StageWrapper style={{ marginRight: '1rem' }}>
             <div className='stage__title'>
                 <span className='stage__title__header'>{title}</span>
                 <span className='stage__title__options'>...</span>
@@ -102,7 +103,7 @@ const Stage: React.FunctionComponent<Props> = ({ title, tasks }) => {
             <button onClick={handleAddTask} className='btn-add-task'>
                 <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
             </button>
-        </Wrapper>
+        </StageWrapper>
     )
 }
 
