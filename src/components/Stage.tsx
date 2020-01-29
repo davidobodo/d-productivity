@@ -63,6 +63,8 @@ interface Props {
     tasks: Array<string | number>
 }
 
+
+
 const Stage: React.FunctionComponent<Props> = ({ title, tasks }) => {
     const [addTask, setAddTask] = useState(false);
     const [taskDetails, setTaskDetails] = useState('');
@@ -81,17 +83,15 @@ const Stage: React.FunctionComponent<Props> = ({ title, tasks }) => {
         handleAddTask();
     }
 
-    console.log(tasks)
-
 
     return (
-        <StageWrapper style={{ marginRight: '1rem' }}>
+        <StageWrapper >
             <div className='stage__title'>
                 <span className='stage__title__header'>{title}</span>
                 <span className='stage__title__options'>...</span>
             </div>
             {tasks && tasks.map((task, i) => {
-                return <Card task={task} />
+                return <Card task={task} key={i} />
             })}
             {addTask &&
                 <TextArea

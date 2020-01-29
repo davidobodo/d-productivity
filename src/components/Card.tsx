@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-    task: string | number
+    task: string | number,
+
 }
 
 const Wrapper = styled.div`
@@ -30,9 +31,17 @@ const Wrapper = styled.div`
     }
 `
 
-const Card: React.FunctionComponent<Props> = ({ task }) => {
+const Types = {
+    CARD: 'card'
+}
+
+const Card: React.FunctionComponent<Props> = (props) => {
+    const { task } = props;
+
+
+
     return (
-        <Wrapper>
+        <Wrapper >
             <span>{task}</span>
             <FontAwesomeIcon icon={faPlus} />
         </Wrapper>

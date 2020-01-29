@@ -1,34 +1,12 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector, shallowEqual, } from 'react-redux';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import Stage from './components/Stage';
-import TextArea from './components/TextArea';
 
 import { createSection } from './store/actions'
-
-
-const GlobalStyles = createGlobalStyle`
-  *, 
-  *:before, 
-  *:after{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html{
-    font-size: 62.5%;
-  }
-
-  body{
-    font-size: 1.4rem;
-    background-color: #5F01D0;
-    font-family: sans-serif;
-  }
-`
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -128,29 +106,26 @@ const App = () => {
   }), shallowEqual)
 
   return (
-    <Fragment>
-      <GlobalStyles />
-      <Wrapper>
-        <header>d-Productivity</header>
-        <div className='cards'>
-          {lists && Object.entries(lists).map((list, i) => {
-            return <Stage title={list[0]} tasks={list[1]} key={i} />
-          })}
-          {addList &&
-            <div className='list-title'>
-              <input type="text" placeholder='Enter list title' onChange={handleSetSectionTitle} autoFocus />
-              <div>
-                <button onClick={handleSubmitSectionTitle}>Add Card</button>
-                <FontAwesomeIcon icon={faPlus} />
-              </div>
+    <Wrapper>
+      <header>d-Productivity</header>
+      <div className='cards'>
+        {lists && Object.entries(lists).map((list, i) => {
+          return <Stage title={list[0]} tasks={list[1]} key={i} />
+        })}
+        {addList &&
+          <div className='list-title'>
+            <input type="text" placeholder='Enter list title' onChange={handleSetSectionTitle} autoFocus />
+            <div>
+              <button onClick={handleSubmitSectionTitle}>Add Card</button>
+              <FontAwesomeIcon icon={faPlus} />
             </div>
-          }
-          <button onClick={handleAddList} className='btn-add-list'>
-            <FontAwesomeIcon icon={faPlus} /><span>Add another List</span>
-          </button>
-        </div>
-      </Wrapper>
-    </Fragment>
+          </div>
+        }
+        <button onClick={handleAddList} className='btn-add-list'>
+          <FontAwesomeIcon icon={faPlus} /><span>Add another List</span>
+        </button>
+      </div>
+    </Wrapper>
   )
 }
 
