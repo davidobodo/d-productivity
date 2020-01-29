@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Provider } from 'react-redux';
+import { DragDropContext } from 'react-beautiful-dnd';
 import store from './store/store'
 import { createGlobalStyle } from 'styled-components';
 import App from './App';
@@ -25,12 +26,19 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const Root = () => {
-    return (
-        <Provider store={store}>
-            <GlobalStyles />
-            <App />
-        </Provider>
-    )
+
+  const handleOnDragEnd = () => {
+
+  }
+
+  return (
+    <Provider store={store}>
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <GlobalStyles />
+      </DragDropContext>
+      <App />
+    </Provider>
+  )
 }
 
 export default Root;
