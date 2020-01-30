@@ -2,9 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Draggable } from 'react-beautiful-dnd';
+
 
 interface Props {
     task: string | number,
+    index: number,
+    id: number,
 
 }
 
@@ -35,16 +39,22 @@ const Types = {
     CARD: 'card'
 }
 
-const Card: React.FunctionComponent<Props> = (props) => {
-    const { task } = props;
+const Card: React.FunctionComponent<Props> = ({ task, index, id }) => {
 
 
 
     return (
-        <Wrapper >
-            <span>{task}</span>
-            <FontAwesomeIcon icon={faPlus} />
-        </Wrapper>
+        <Draggable draggableId={String(id)} index={index}>
+            {provided => (
+                <Wrapper
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}>
+                    <span>{task}</span>
+                    <FontAwesomeIcon icon={faPlus} />
+                </Wrapper>
+            )}
+        </Draggable>
     )
 }
 

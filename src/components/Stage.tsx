@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { createTask } from '../store/actions';
+import { Droppable } from 'react-beautiful-dnd';
 
 import Card from './Card';
 import TextArea from './TextArea';
@@ -60,12 +61,13 @@ const StageWrapper = styled.div`
 
 interface Props {
     title?: string,
-    tasks: Array<string | number>
+    tasks: Array<string | number>,
+    id: number,
 }
 
 
 
-const Stage: React.FunctionComponent<Props> = ({ title, tasks }) => {
+const Stage: React.FunctionComponent<Props> = ({ title, tasks, id }) => {
     const [addTask, setAddTask] = useState(false);
     const [taskDetails, setTaskDetails] = useState('');
     const dispatch = useDispatch();
@@ -85,25 +87,33 @@ const Stage: React.FunctionComponent<Props> = ({ title, tasks }) => {
 
 
     return (
-        <StageWrapper >
-            <div className='stage__title'>
-                <span className='stage__title__header'>{title}</span>
-                <span className='stage__title__options'>...</span>
-            </div>
-            {tasks && tasks.map((task, i) => {
-                return <Card task={task} key={i} />
-            })}
-            {addTask &&
-                <TextArea
-                    handleShowTextArea={handleAddTask}
-                    handleSubmitTextArea={handleSubmitTask}
-                    handleUpdateTextArea={handleSetTaskDetails}
-                    placeholder='Enter details for this task'
-                    buttonText='Add Card' />}
-            <button onClick={handleAddTask} className='btn-add-task'>
-                <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
-            </button>
-        </StageWrapper>
+        <Droppable droppableId={String(id)}>
+            {provided => (
+                <StageWrapper
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                >
+                    <div className='stage__title'>
+                        <span className='stage__title__header'>{title}</span>
+                        <span className='stage__title__options'>...</span>
+                    </div>
+                    {tasks && tasks.map((task, i) => {
+                        return <Card task={task} key={i} index={i} id={i} />
+                    })}
+                    {addTask &&
+                        <TextArea
+                            handleShowTextArea={handleAddTask}
+                            handleSubmitTextArea={handleSubmitTask}
+                            handleUpdateTextArea={handleSetTaskDetails}
+                            placeholder='Enter details for this task'
+                            buttonText='Add Card' />}
+                    <button onClick={handleAddTask} className='btn-add-task'>
+                        <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
+                    </button>
+                    {provided.placeholder}
+                </StageWrapper>
+            )}
+        </Droppable>
     )
 }
 

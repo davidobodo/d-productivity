@@ -35,8 +35,8 @@ const Root = () => {
     <Provider store={store}>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <GlobalStyles />
+        <App />
       </DragDropContext>
-      <App />
     </Provider>
   )
 }

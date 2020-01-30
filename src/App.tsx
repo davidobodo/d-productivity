@@ -110,7 +110,11 @@ const App = () => {
       <header>d-Productivity</header>
       <div className='cards'>
         {lists && Object.entries(lists).map((list, i) => {
-          return <Stage title={list[0]} tasks={list[1]} key={i} />
+          return <Stage
+            title={list[0]}
+            tasks={list[1]}
+            key={i}
+            id={i} />
         })}
         {addList &&
           <div className='list-title'>
