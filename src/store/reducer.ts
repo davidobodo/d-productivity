@@ -76,6 +76,12 @@ const reducer = (state = initialState, action: Action) => {
                     tasks: convertedArray
                 }
             }
+
+            if (droppableIdStart !== droppableIdEnd) {
+                const myArray = Object.values(state.tasks);
+                const movedCard = myArray.splice(droppableIndexStart, 1);
+                movedCard[0].titleId = droppableIdEnd;
+            }
         default:
             return state;
     }
