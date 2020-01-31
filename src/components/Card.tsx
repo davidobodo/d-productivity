@@ -6,9 +6,9 @@ import { Draggable } from 'react-beautiful-dnd';
 
 
 interface Props {
-    task: string | number,
+    content: string | number,
     index: number,
-    id: number,
+    taskId: string | number,
 
 }
 
@@ -35,22 +35,19 @@ const Wrapper = styled.div`
     }
 `
 
-const Types = {
-    CARD: 'card'
-}
 
-const Card: React.FunctionComponent<Props> = ({ task, index, id }) => {
 
+const Card: React.FunctionComponent<Props> = ({ content, index, taskId }) => {
 
 
     return (
-        <Draggable draggableId={String(id)} index={index}>
+        <Draggable draggableId={String(taskId)} index={index}>
             {provided => (
                 <Wrapper
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}>
-                    <span>{task}</span>
+                    <span>{content}</span>
                     <FontAwesomeIcon icon={faPlus} />
                 </Wrapper>
             )}

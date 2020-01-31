@@ -5,69 +5,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { createTask } from '../store/actions';
 import { Droppable } from 'react-beautiful-dnd';
+import { myState } from '../utils/interfaces';
+import uuidv4 from 'uuid';
 
 import Card from './Card';
 import TextArea from './TextArea';
+import { StageWrapper } from './StageStyles';
 
-const StageWrapper = styled.div`
-    min-width: 300px;
-    color: #000000;
-    background-color: #ECECF0;
-    padding: 1rem 1rem 0rem;
-    border-radius: 3px;
-    font-size: 15px;
-    margin-right: 1rem;
 
-    .stage__title{
-        display: flex;
-        justify-content: space-between;
-        height: 2rem;
-        align-items: center;
-        margin-bottom: 1rem;
-
-        &__header{
-            font-weight: 600;
-            padding-left: 1rem;
-        }
-
-        &__options{
-            font-size: 2.5rem;
-            padding-bottom: 1rem;
-        }
-    }
-
-    .btn-add-task{
-        font-size: inherit;
-        color: #6B778C;
-        background-color: transparent;
-        margin-bottom: 1.5rem;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        width: 100%;
-        text-align: left;
-        padding: 0.5rem 1rem;
-        border-radius: 3px;
-
-        :hover{
-            background-color: #ACACAC;
-        }
-
-        svg{
-            margin-right: 10px;
-        }
-    }
-`
 
 interface Props {
     title: string,
     tasks: Array<string | number>,
-    id: number,
+    titleId: string | number,
 }
 
 
 
-const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, id }) => {
+const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId }) => {
     const [addTask, setAddTask] = useState(false);
     const [taskDetails, setTaskDetails] = useState('');
     const dispatch = useDispatch();
@@ -81,13 +36,20 @@ const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, id }) =>
     }
 
     const handleSubmitTask = () => {
-        dispatch(createTask(taskDetails, title));
+        const taskId = uuidv4()
+        dispatch(createTask(taskId, taskDetails, titleId));
         handleAddTask();
     }
 
+    const {
+        allTasks
+    } = useSelector((state: myState) => ({
+        allTasks: state.tasks,
+    }), shallowEqual)
+    console.log(titleId)
 
     return (
-        <Droppable droppableId={String(id)}>
+        <Droppable droppableId={String(titleId)}>
             {provided => (
                 <StageWrapper
                     {...provided.droppableProps}
@@ -97,9 +59,12 @@ const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, id }) =>
                         <span className='stage__title__header'>{title}</span>
                         <span className='stage__title__options'>...</span>
                     </div>
-                    {/* {tasks && tasks.map((task, i) => {
-                        return <Card task={task} key={i} index={i} id={i} />
-                    })} */}
+                    {allTasks && Object.values(allTasks).map((task, i) => {
+                        const { taskId, taskDetails } = task
+                        if (titleId === task.titleId) {
+                            return <Card key={taskId} content={taskDetails} index={i} taskId={taskId} />
+                        }
+                    })}
                     {addTask &&
                         <TextArea
                             handleShowTextArea={handleAddTask}

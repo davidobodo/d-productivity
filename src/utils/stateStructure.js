@@ -7,19 +7,16 @@ const state = {
     tasks: {
         1: {
             id: 1,
-            picture: 'some picture',
             content: 'somecontent',
             titleId: 111
         },
         2: {
             id: 2,
-            picture: 'some picture',
             content: 'somecontent',
             titleId: 111
         },
         3: {
             id: 2,
-            picture: 'some picture',
             content: 'somecontent',
             titleId: 222
         }

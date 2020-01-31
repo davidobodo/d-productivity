@@ -1,18 +1,23 @@
 import { CREATE_TASK, DELETE_TASK, CREATE_SECTION } from "./actionTypes";
 
-export const createSection = (title: string, id: number | string) => {
+export const createSection = (title: string, titleId: number | string) => {
     return {
         type: CREATE_SECTION,
         title,
-        id
+        titleId
     }
 }
 
-export const createTask = (task: string, title: string | undefined) => {
+export const createTask = (
+    taskId: string | number,
+    taskDetails: string | number,
+    titleId: string | number | undefined
+) => {
     return {
         type: CREATE_TASK,
-        task,
-        title
+        taskId,
+        taskDetails,
+        titleId
     }
 }
 

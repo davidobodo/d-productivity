@@ -5,7 +5,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Wrapper } from './AppStyles';
 import uuidv4 from 'uuid';
 import Stage from './components/Stage';
-import { createSection } from './store/actions'
+import { createSection } from './store/actions';
+import { myState } from './utils/interfaces'
 
 
 const App = () => {
@@ -18,8 +19,8 @@ const App = () => {
   }
 
   const handleSubmitSectionTitle = () => {
-    const id = uuidv4()
-    dispatch(createSection(sectionTitle, id))
+    const titleId = uuidv4()
+    dispatch(createSection(sectionTitle, titleId))
     setAddList(false)
   }
 
@@ -27,16 +28,7 @@ const App = () => {
     setAddList(true)
   }
 
-  interface myState {
-    titles: {
-      [key: number]: string
-    },
-    tasks: {
-      [key: number]: {
-        [key: string]: number | string
-      }
-    }
-  }
+
 
   const {
     lists
@@ -44,22 +36,14 @@ const App = () => {
     lists: state.titles,
   }), shallowEqual)
 
-  console.log(lists)
 
   return (
     <Wrapper>
       <header>d-Productivity</header>
       <div className='cards'>
         {lists && Object.entries(lists).map((list, i) => {
-          return <Stage key={list[0]} title={list[1]} />
+          return <Stage key={list[0]} title={list[1]} titleId={list[0]} />
         })}
-        {/* {lists && Object.values(lists.titles).map((list, i) => {
-          return <Stage
-            title={list[0]}
-            tasks={list[1]}
-            key={i}
-            id={i} />
-        })} */}
         {addList &&
           <div className='list-title'>
             <input type="text" placeholder='Enter list title' onChange={handleSetSectionTitle} autoFocus />
