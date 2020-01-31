@@ -60,14 +60,14 @@ const StageWrapper = styled.div`
 `
 
 interface Props {
-    title?: string,
+    title: string,
     tasks: Array<string | number>,
     id: number,
 }
 
 
 
-const Stage: React.FunctionComponent<Props> = ({ title, tasks, id }) => {
+const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, id }) => {
     const [addTask, setAddTask] = useState(false);
     const [taskDetails, setTaskDetails] = useState('');
     const dispatch = useDispatch();

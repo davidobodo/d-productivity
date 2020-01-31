@@ -9,29 +9,26 @@ interface Action {
     id: number | string
 }
 
-interface State {
-    [key: string]: {
+
+
+interface myState {
+    titles: {
+        [key: number]: string
+    },
+    tasks: {
         [key: number]: {
             [key: string]: number | string
         }
     }
 }
 
-// interface State2 {
-//     titles: {
-//         [key: number]: string
-//     },
-//     tasks: {
-//         [key: number] : {
-//             [key: string] : number | string
-//         }
-//     }
-// }
 
-const initialState = {
+const initialState: myState = {
+    titles: {},
+    tasks: {},
 };
 
-export default (state: State = initialState, action: Action) => {
+const reducer = (state = initialState, action: Action) => {
     const { type, error, task, title, id } = action;
     switch (type) {
         case CREATE_SECTION:
@@ -55,3 +52,16 @@ export default (state: State = initialState, action: Action) => {
             return state;
     }
 }
+
+export default reducer;
+
+
+// interface State2 {
+//     [key: string]: {
+//         [key: number]: {
+//             [key: string]: number | string
+//         }
+//     }
+// }
+
+
