@@ -97,9 +97,9 @@ const Stage: React.FunctionComponent<Props> = ({ title, tasks, id }) => {
                         <span className='stage__title__header'>{title}</span>
                         <span className='stage__title__options'>...</span>
                     </div>
-                    {tasks && tasks.map((task, i) => {
+                    {/* {tasks && tasks.map((task, i) => {
                         return <Card task={task} key={i} index={i} id={i} />
-                    })}
+                    })} */}
                     {addTask &&
                         <TextArea
                             handleShowTextArea={handleAddTask}

@@ -6,44 +6,46 @@ interface Action {
     payload: string,
     task: string,
     title: string,
+    id: number | string
 }
 
 interface State {
-    [key: string]: Array<string>
+    [key: string]: {
+        [key: number]: {
+            [key: string]: number | string
+        }
+    }
 }
+
+// interface State2 {
+//     titles: {
+//         [key: number]: string
+//     },
+//     tasks: {
+//         [key: number] : {
+//             [key: string] : number | string
+//         }
+//     }
+// }
 
 const initialState = {
 };
 
-const sampleState = {
-    firstList: [
-        'buy bread',
-        'buy beans',
-        'buy coke',
-        'buy moi-moi',
-        'buy apple'
-    ],
-    secondList: [
-        'learn html',
-        'learn css',
-        'learn javascript',
-        'learn react',
-        'learn typescript'
-    ]
-}
-
 export default (state: State = initialState, action: Action) => {
-    const { type, error, task, title } = action;
+    const { type, error, task, title, id } = action;
     switch (type) {
         case CREATE_SECTION:
             return {
                 ...state,
-                [title]: [],
+                titles: {
+                    ...state.titles,
+                    [id]: title
+                },
             }
         case CREATE_TASK:
             return {
                 ...state,
-                [title]: [...state[title], task]
+                // [title]: [...state[title], task]
             };
         case DELETE_TASK:
             return {
