@@ -46,7 +46,6 @@ const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId 
     } = useSelector((state: myState) => ({
         allTasks: state.tasks,
     }), shallowEqual)
-    console.log(titleId)
 
     return (
         <Droppable droppableId={String(titleId)}>

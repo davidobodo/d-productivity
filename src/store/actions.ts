@@ -1,4 +1,4 @@
-import { CREATE_TASK, DELETE_TASK, CREATE_SECTION } from "./actionTypes";
+import { CREATE_TASK, DELETE_TASK, CREATE_SECTION, DRAG_HAPPENED } from "./actionTypes";
 
 export const createSection = (title: string, titleId: number | string) => {
     return {
@@ -25,4 +25,23 @@ export const deleteTask = (payload: string) => ({
     type: DELETE_TASK,
     payload
 })
+
+export const sortTasks = (
+    droppableIdStart: any,
+    droppableIdEnd: any,
+    droppableIndexStart: any,
+    droppableIndexEnd: any,
+    draggableId: any
+) => {
+    return {
+        type: DRAG_HAPPENED,
+        payload: {
+            droppableIdStart,
+            droppableIdEnd,
+            droppableIndexStart,
+            droppableIndexEnd,
+            draggableId
+        }
+    }
+}
 

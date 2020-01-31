@@ -1,10 +1,10 @@
-import { CREATE_TASK, DELETE_TASK, CREATE_SECTION } from "./actionTypes";
+import { CREATE_TASK, DELETE_TASK, CREATE_SECTION, DRAG_HAPPENED } from "./actionTypes";
 import { myState } from '../utils/interfaces'
 
 interface Action {
     type: string,
     error: string,
-    payload: string,
+    payload: any,
     title: string,
     taskId: string | number,
     taskDetails: string | number,
@@ -43,6 +43,38 @@ const reducer = (state = initialState, action: Action) => {
         case DELETE_TASK:
             return {
                 ...state,
+            }
+        case DRAG_HAPPENED:
+            const {
+                droppableIdStart,
+                droppableIdEnd,
+                droppableIndexStart,
+                droppableIndexEnd,
+                draggableId
+            } = action.payload;
+            if (droppableIdStart === droppableIdEnd) {
+                // const list = state.titles[droppableIdStart]
+                // const activeList = Object.values(state.tasks).filter((task, i) => {
+                //     return task.titleId === droppableIdStart;
+                // })
+                const myArray = Object.values(state.tasks);
+                const movedCard = myArray.splice(droppableIndexStart, 1);
+                myArray.splice(droppableIndexEnd, 0, ...movedCard);
+
+                const convertArrayToObject = (array: any, key: string) => {
+                    const initialValue = {};
+                    return array.reduce((obj: any, item: any) => {
+                        return {
+                            ...obj,
+                            [item[key]]: item,
+                        };
+                    }, initialValue)
+                }
+                const convertedArray = convertArrayToObject(myArray, 'taskId');
+                return {
+                    ...state,
+                    tasks: convertedArray
+                }
             }
         default:
             return state;

@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import { Provider } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
-import store from './store/store'
 import { createGlobalStyle } from 'styled-components';
 import App from './App';
+import { sortTasks } from './store/actions'
 
 const GlobalStyles = createGlobalStyle`
   *, 
@@ -26,18 +26,36 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const Root = () => {
+  const dispatch = useDispatch()
 
-  const handleOnDragEnd = () => {
+  const handleOnDragEnd = (result: any) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) {
+      return;
+    }
+    console.log(
+      source.droppableId,
+      destination.droppableId,
+      source.index,
+      destination.index,
+      draggableId
+    )
+    dispatch(sortTasks(
+      source.droppableId,
+      destination.droppableId,
+      source.index,
+      destination.index,
+      draggableId
+    ))
 
   }
 
   return (
-    <Provider store={store}>
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <GlobalStyles />
-        <App />
-      </DragDropContext>
-    </Provider>
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+      <GlobalStyles />
+      <App />
+    </DragDropContext>
   )
 }
 
