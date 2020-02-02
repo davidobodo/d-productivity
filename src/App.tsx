@@ -6,7 +6,7 @@ import { Wrapper } from './AppStyles';
 import uuidv4 from 'uuid';
 import Stage from './components/Stage';
 import { createSection } from './store/actions';
-import { myState } from './utils/interfaces';
+import { myState } from './utils/utils';
 import { Droppable } from 'react-beautiful-dnd';
 
 
