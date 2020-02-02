@@ -1,4 +1,5 @@
 import { CREATE_TASK, DELETE_TASK, CREATE_SECTION, DRAG_HAPPENED } from "./actionTypes";
+import { any } from "prop-types";
 
 export const createSection = (title: string, titleId: number | string) => {
     return {
@@ -31,7 +32,8 @@ export const sortTasks = (
     droppableIdEnd: any,
     droppableIndexStart: any,
     droppableIndexEnd: any,
-    draggableId: any
+    draggableId: any,
+    type: any,
 ) => {
     return {
         type: DRAG_HAPPENED,
@@ -40,7 +42,8 @@ export const sortTasks = (
             droppableIdEnd,
             droppableIndexStart,
             droppableIndexEnd,
-            draggableId
+            draggableId,
+            type,
         }
     }
 }

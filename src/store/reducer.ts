@@ -50,13 +50,33 @@ const reducer = (state = initialState, action: Action) => {
                 droppableIdEnd,
                 droppableIndexStart,
                 droppableIndexEnd,
-                draggableId
+                draggableId,
+                type
             } = action.payload;
+            if (type === "list") {
+                const myStages = Object.entries(state.titles)
+                console.log(myStages)
+                const movedStage = myStages.splice(draggableId, 1)
+                myStages.splice(droppableIndexEnd, 0, ...movedStage)
+                console.log(myStages)
+                // console.log(movedStage)
+
+                const convertArrayToObject = (array: any) => {
+                    const initialValue = {};
+                    return array.reduce((obj: any, item: any) => {
+                        return {
+                            ...obj,
+                            [item[0]]: item[1],
+                        };
+                    }, initialValue)
+                }
+                const convertedArray = convertArrayToObject(myStages);
+                return {
+                    ...state,
+                    titles: convertedArray
+                }
+            }
             if (droppableIdStart === droppableIdEnd) {
-                // const list = state.titles[droppableIdStart]
-                // const activeList = Object.values(state.tasks).filter((task, i) => {
-                //     return task.titleId === droppableIdStart;
-                // })
                 const myArray = Object.values(state.tasks);
                 const movedCard = myArray.splice(droppableIndexStart, 1);
                 myArray.splice(droppableIndexEnd, 0, ...movedCard);
@@ -81,7 +101,25 @@ const reducer = (state = initialState, action: Action) => {
                 const myArray = Object.values(state.tasks);
                 const movedCard = myArray.splice(droppableIndexStart, 1);
                 movedCard[0].titleId = droppableIdEnd;
+                myArray.splice(droppableIndexEnd, 0, ...movedCard);
+
+                const convertArrayToObject = (array: any, key: string) => {
+                    const initialValue = {};
+                    return array.reduce((obj: any, item: any) => {
+                        return {
+                            ...obj,
+                            [item[key]]: item,
+                        };
+                    }, initialValue)
+                }
+                const convertedArray = convertArrayToObject(myArray, 'taskId');
+                return {
+                    ...state,
+                    tasks: convertedArray
+                }
             }
+
+
         default:
             return state;
     }
@@ -90,12 +128,5 @@ const reducer = (state = initialState, action: Action) => {
 export default reducer;
 
 
-// interface State2 {
-//     [key: string]: {
-//         [key: number]: {
-//             [key: string]: number | string
-//         }
-//     }
-// }
 
 

@@ -6,7 +6,8 @@ import { Wrapper } from './AppStyles';
 import uuidv4 from 'uuid';
 import Stage from './components/Stage';
 import { createSection } from './store/actions';
-import { myState } from './utils/interfaces'
+import { myState } from './utils/interfaces';
+import { Droppable } from 'react-beautiful-dnd';
 
 
 const App = () => {
@@ -40,23 +41,39 @@ const App = () => {
   return (
     <Wrapper>
       <header>d-Productivity</header>
-      <div className='cards'>
-        {lists && Object.entries(lists).map((list, i) => {
-          return <Stage key={list[0]} title={list[1]} titleId={list[0]} />
-        })}
-        {addList &&
-          <div className='list-title'>
-            <input type="text" placeholder='Enter list title' onChange={handleSetSectionTitle} autoFocus />
-            <div>
-              <button onClick={handleSubmitSectionTitle}>Add Card</button>
-              <FontAwesomeIcon icon={faPlus} />
-            </div>
+      <Droppable
+        droppableId="all-lists"
+        direction="horizontal"
+        type="list">
+        {provided => (
+          <div
+            className='cards'
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {lists && Object.entries(lists).map((list, i) => {
+              return <Stage
+                key={list[0]}
+                title={list[1]}
+                titleId={list[0]}
+                index={i} />
+            })}
+            {provided.placeholder}
+            {addList &&
+              <div className='list-title'>
+                <input type="text" placeholder='Enter list title' onChange={handleSetSectionTitle} autoFocus />
+                <div>
+                  <button onClick={handleSubmitSectionTitle}>Add Card</button>
+                  <FontAwesomeIcon icon={faPlus} />
+                </div>
+              </div>
+            }
+            <button onClick={handleAddList} className='btn-add-list'>
+              <FontAwesomeIcon icon={faPlus} /><span>Add another List</span>
+            </button>
           </div>
-        }
-        <button onClick={handleAddList} className='btn-add-list'>
-          <FontAwesomeIcon icon={faPlus} /><span>Add another List</span>
-        </button>
-      </div>
+        )}
+      </Droppable>
     </Wrapper>
   )
 }

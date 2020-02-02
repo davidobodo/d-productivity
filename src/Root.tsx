@@ -29,24 +29,30 @@ const Root = () => {
   const dispatch = useDispatch()
 
   const handleOnDragEnd = (result: any) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
     }
+
+    // if (type === "list") {
+    //   return;
+    // }
     console.log(
       source.droppableId,
       destination.droppableId,
       source.index,
       destination.index,
-      draggableId
+      draggableId,
+      type
     )
     dispatch(sortTasks(
       source.droppableId,
       destination.droppableId,
       source.index,
       destination.index,
-      draggableId
+      draggableId,
+      type
     ))
 
   }
