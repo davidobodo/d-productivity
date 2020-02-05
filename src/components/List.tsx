@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { createTask } from '../store/actions';
+import { createTask, deleteSection } from '../store/actions';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { myState } from '../utils/utils';
 import uuidv4 from 'uuid';
@@ -42,7 +42,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId, 
     }
 
     const handleDeleteList = () => {
-
+        dispatch(deleteSection(titleId))
     }
 
     const {
@@ -51,7 +51,6 @@ const List: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId, 
         allTasks: state.tasks,
     }), shallowEqual)
 
-    console.log({ allTasks })
 
     return (
         <Draggable draggableId={String(titleId)} index={index as number}>

@@ -26,7 +26,7 @@ export const ListWrapper = styled.div`
             padding-bottom: 1rem;
         }
 
-        .svg{
+        svg{
             opacity: 0.2;
             transform: rotate(45deg);
     

@@ -1,4 +1,10 @@
-import { CREATE_TASK, DELETE_TASK, CREATE_SECTION, DRAG_HAPPENED } from "./actionTypes";
+import {
+    CREATE_TASK,
+    DELETE_TASK,
+    CREATE_SECTION,
+    DELETE_SECTION,
+    DRAG_HAPPENED
+} from "./actionTypes";
 
 export const createSection = (title: string, titleId: number | string) => {
     return {
@@ -7,6 +13,11 @@ export const createSection = (title: string, titleId: number | string) => {
         titleId
     }
 }
+
+export const deleteSection = (titleId: string | number | undefined) => ({
+    type: DELETE_SECTION,
+    titleId
+})
 
 export const createTask = (
     taskId: string | number,

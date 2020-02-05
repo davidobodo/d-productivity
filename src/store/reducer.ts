@@ -1,5 +1,16 @@
-import { CREATE_TASK, DELETE_TASK, CREATE_SECTION, DRAG_HAPPENED } from "./actionTypes";
-import { myState, convertArrayToObject, convertArrayToObject2, cloneObject } from '../utils/utils';
+import {
+    CREATE_TASK,
+    DELETE_TASK,
+    CREATE_SECTION,
+    DRAG_HAPPENED,
+    DELETE_SECTION
+} from "./actionTypes";
+import {
+    myState,
+    convertArrayToObject,
+    convertArrayToObject2,
+    cloneObject
+} from '../utils/utils';
 
 
 interface Action {
@@ -44,7 +55,11 @@ const reducer = (state = initialState, action: Action) => {
         case DELETE_TASK:
             const clonedState = cloneObject(state);
             delete clonedState.tasks[taskId as number];
-            return clonedState
+            return clonedState;
+        case DELETE_SECTION:
+            const clonedState2 = cloneObject(state);
+            delete clonedState2.titles[titleId as number];
+            return clonedState2;
         case DRAG_HAPPENED:
             const {
                 droppableIdStart,
