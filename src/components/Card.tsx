@@ -34,6 +34,10 @@ const Wrapper = styled.div`
     svg{
         opacity: 0.2;
         transform: rotate(45deg);
+
+        &:hover{
+            cursor: default;
+        }
     }
 `
 

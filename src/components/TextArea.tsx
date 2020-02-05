@@ -54,6 +54,10 @@ const Wrapper = styled.div`
 
             svg{
                 transform: rotate(45deg);
+
+                &:hover{
+                    cursor: default;
+                }
             }
         }
     }
