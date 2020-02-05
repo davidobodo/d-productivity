@@ -37,7 +37,6 @@ const App = () => {
     lists: state.titles,
   }), shallowEqual)
 
-  console.log(lists)
 
 
   return (
