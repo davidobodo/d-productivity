@@ -9,7 +9,7 @@ import uuidv4 from 'uuid';
 
 import Card from './Card';
 import TextArea from './TextArea';
-import { StageWrapper } from './StageStyles';
+import { ListWrapper } from './ListStyles';
 
 
 
@@ -22,7 +22,7 @@ interface Props {
 
 
 
-const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId, index }) => {
+const List: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId, index }) => {
     const [addTask, setAddTask] = useState(false);
     const [taskDetails, setTaskDetails] = useState('');
     const dispatch = useDispatch();
@@ -39,6 +39,10 @@ const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId,
         const taskId = uuidv4()
         dispatch(createTask(taskId, taskDetails, titleId));
         handleAddTask();
+    }
+
+    const handleDeleteList = () => {
+
     }
 
     const {
@@ -59,13 +63,14 @@ const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId,
                 >
                     <Droppable droppableId={String(titleId)} type="card">
                         {provided => (
-                            <StageWrapper
+                            <ListWrapper
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
-                                <div className='stage__title'>
-                                    <span className='stage__title__header'>{title}</span>
-                                    <span className='stage__title__options'>...</span>
+                                <div className='List__title'>
+                                    <span className='List__title__header'>{title}</span>
+                                    {/* <span className='List__title__options'>...</span> */}
+                                    <FontAwesomeIcon icon={faPlus} onClick={handleDeleteList} />
                                 </div>
                                 {allTasks && Object
                                     .values(allTasks)
@@ -82,7 +87,7 @@ const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId,
                                 <button onClick={handleAddTask} className='btn-add-task'>
                                     <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
                                 </button>
-                            </StageWrapper>
+                            </ListWrapper>
                         )}
                     </Droppable>
                 </div>
@@ -93,4 +98,4 @@ const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId,
     )
 }
 
-export default Stage;
+export default List;

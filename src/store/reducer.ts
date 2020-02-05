@@ -55,11 +55,11 @@ const reducer = (state = initialState, action: Action) => {
                 type
             } = action.payload;
             if (type === "list") {
-                const myStages = Object.entries(state.titles)
-                const movedStage = myStages.splice(droppableIndexStart, 1)
-                myStages.splice(droppableIndexEnd, 0, ...movedStage)
+                const myLists = Object.entries(state.titles)
+                const movedList = myLists.splice(droppableIndexStart, 1)
+                myLists.splice(droppableIndexEnd, 0, ...movedList)
 
-                const convertedArray = convertArrayToObject2(myStages);
+                const convertedArray = convertArrayToObject2(myLists);
                 return {
                     ...state,
                     titles: convertedArray

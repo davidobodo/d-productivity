@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Wrapper } from './AppStyles';
 import uuidv4 from 'uuid';
-import Stage from './components/Stage';
+import List from './components/List';
 import { createSection } from './store/actions';
 import { myState } from './utils/utils';
 import { Droppable } from 'react-beautiful-dnd';
@@ -54,7 +54,7 @@ const App = () => {
             ref={provided.innerRef}
           >
             {lists && Object.entries(lists).map((list, i) => {
-              return <Stage
+              return <List
                 key={list[0]}
                 title={list[1]}
                 titleId={list[0]}

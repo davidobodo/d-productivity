@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StageWrapper = styled.div`
+export const ListWrapper = styled.div`
     min-width: 300px;
     color: #000000;
     background-color: #ECECF0;
@@ -9,7 +9,7 @@ export const StageWrapper = styled.div`
     font-size: 15px;
     margin-right: 1rem;
 
-    .stage__title{
+    .List__title{
         display: flex;
         justify-content: space-between;
         height: 2rem;
@@ -24,6 +24,15 @@ export const StageWrapper = styled.div`
         &__options{
             font-size: 2.5rem;
             padding-bottom: 1rem;
+        }
+
+        .svg{
+            opacity: 0.2;
+            transform: rotate(45deg);
+    
+            &:hover{
+                cursor: default;
+            }
         }
     }
 
