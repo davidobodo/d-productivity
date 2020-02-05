@@ -38,14 +38,6 @@ const Root = () => {
     // if (type === "list") {
     //   return;
     // }
-    console.log(
-      source.droppableId,
-      destination.droppableId,
-      source.index,
-      destination.index,
-      draggableId,
-      type
-    )
     dispatch(sortTasks(
       source.droppableId,
       destination.droppableId,

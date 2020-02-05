@@ -47,6 +47,8 @@ const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId,
         allTasks: state.tasks,
     }), shallowEqual)
 
+    console.log({ allTasks })
+
     return (
         <Draggable draggableId={String(titleId)} index={index as number}>
             {provided => (
@@ -65,12 +67,10 @@ const Stage: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId,
                                     <span className='stage__title__header'>{title}</span>
                                     <span className='stage__title__options'>...</span>
                                 </div>
-                                {allTasks && Object.values(allTasks).map((task, i) => {
-                                    const { taskId, taskDetails } = task
-                                    if (titleId === task.titleId) {
-                                        return <Card key={taskId} content={taskDetails} index={i} taskId={taskId} />
-                                    }
-                                })}
+                                {allTasks && Object
+                                    .values(allTasks)
+                                    .filter(task => titleId === task.titleId)
+                                    .map(({ taskId, taskDetails }, i) => <Card key={taskId} content={taskDetails} index={i} taskId={taskId} />)}
                                 {addTask &&
                                     <TextArea
                                         handleShowTextArea={handleAddTask}

@@ -1,5 +1,4 @@
 import { CREATE_TASK, DELETE_TASK, CREATE_SECTION, DRAG_HAPPENED } from "./actionTypes";
-import { any } from "prop-types";
 
 export const createSection = (title: string, titleId: number | string) => {
     return {
@@ -22,9 +21,9 @@ export const createTask = (
     }
 }
 
-export const deleteTask = (payload: string) => ({
+export const deleteTask = (taskId: string | number) => ({
     type: DELETE_TASK,
-    payload
+    taskId
 })
 
 export const sortTasks = (

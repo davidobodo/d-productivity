@@ -1,5 +1,5 @@
 import { CREATE_TASK, DELETE_TASK, CREATE_SECTION, DRAG_HAPPENED } from "./actionTypes";
-import { myState, convertArrayToObject, convertArrayToObject2 } from '../utils/utils';
+import { myState, convertArrayToObject, convertArrayToObject2, cloneObject } from '../utils/utils';
 
 
 interface Action {
@@ -42,9 +42,9 @@ const reducer = (state = initialState, action: Action) => {
                 }
             };
         case DELETE_TASK:
-            return {
-                ...state,
-            }
+            const clonedState = cloneObject(state);
+            delete clonedState.tasks[taskId as number];
+            return clonedState
         case DRAG_HAPPENED:
             const {
                 droppableIdStart,
@@ -78,19 +78,19 @@ const reducer = (state = initialState, action: Action) => {
             }
 
             if (droppableIdStart !== droppableIdEnd) {
+                console.log(droppableIndexStart, droppableIndexEnd)
+                console.log(droppableIdStart, droppableIdEnd)
                 const myArray = Object.values(state.tasks);
                 const movedCard = myArray.splice(droppableIndexStart, 1);
                 movedCard[0].titleId = droppableIdEnd;
                 myArray.splice(droppableIndexEnd, 0, ...movedCard);
-
+                console.log(myArray)
                 const convertedArray = convertArrayToObject(myArray, 'taskId');
                 return {
                     ...state,
                     tasks: convertedArray
                 }
             }
-
-
         default:
             return state;
     }

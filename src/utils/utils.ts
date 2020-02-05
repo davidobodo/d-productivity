@@ -3,7 +3,7 @@ export interface myState {
         [key: number]: string
     },
     tasks: {
-        [key: number]: {
+        [taskId: number]: {
             [key: string]: number | string
         }
     }
@@ -27,4 +27,8 @@ export const convertArrayToObject2 = (array: any) => {
             [item[0]]: item[1],
         };
     }, initialValue)
+}
+
+export const cloneObject = <T>(source: T): T => {
+    return JSON.parse(JSON.stringify(source)) as T;
 }
