@@ -9,10 +9,14 @@ import { createSection } from '../../store/actions';
 import { myState } from '../../utils/utils';
 import { Droppable } from 'react-beautiful-dnd';
 
+interface Props {
+  openBoard: any
+}
 
-const Board = () => {
+const Board: React.FunctionComponent<Props> = ({ openBoard }) => {
   const [sectionTitle, setSectionTitle] = useState();
   const [addList, setAddList] = useState(false);
+
   const dispatch = useDispatch();
 
   const handleSetSectionTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +44,7 @@ const Board = () => {
 
 
   return (
-    <Wrapper>
+    <Wrapper openBoard={openBoard}>
       <header>d-Productivity</header>
       <Droppable
         droppableId="all-lists"

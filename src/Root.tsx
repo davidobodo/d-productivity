@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { createGlobalStyle } from 'styled-components';
@@ -28,6 +28,7 @@ const GlobalStyles = createGlobalStyle`
 
 const Root = () => {
   const dispatch = useDispatch()
+  const [openBoard, setOpenBoard] = useState(false);
 
   const handleOnDragEnd = (result: any) => {
     const { destination, source, draggableId, type } = result;
@@ -53,8 +54,8 @@ const Root = () => {
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <GlobalStyles />
-      <Board />
-      <Home />
+      <Board openBoard={openBoard} />
+      <Home handleSetOpenBoard={() => setOpenBoard(true)} />
     </DragDropContext>
   )
 }

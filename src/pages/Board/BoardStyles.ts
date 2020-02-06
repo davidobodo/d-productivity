@@ -1,12 +1,36 @@
 import styled from 'styled-components';
 
+interface Prop {
+  openBoard: any
+}
 
-export const Wrapper = styled.div`
+
+export const Wrapper = styled.div<Prop>`
+transition: all 1s ease-in-out;
+
+
 position: absolute;
-z-index: -1;
-height: 100vh;
+z-index: 2;
+height: calc(100vh - 80px);
+width: calc(100vw - 60px);
 padding-top: 5rem;
 padding-left: 5rem;
+margin-top: 40px;
+margin-left: 30px;
+background-color: #6e1fd8;
+border-radius: 15px;
+overflow-x: scroll;
+
+${({ openBoard }) => !openBoard && `
+      width: 50px;
+
+      @media(max-width: 765px){
+        width: 0px;
+        padding-left: 0px;
+      }
+  
+  `};
+
 
 header{
   font-size: 5rem;
