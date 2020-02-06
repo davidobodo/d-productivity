@@ -48,7 +48,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId, 
     const {
         allTasks
     } = useSelector((state: myState) => ({
-        allTasks: state.tasks,
+        allTasks: state.cards,
     }), shallowEqual)
 
 

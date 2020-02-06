@@ -5,24 +5,24 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Wrapper } from './BoardStyles';
 import uuidv4 from 'uuid';
 import List from '../../components/List';
-import { createSection } from '../../store/actions';
+import { createList } from '../../store/actions';
 import { myState } from '../../utils/utils';
 import { Droppable } from 'react-beautiful-dnd';
 import { HomeProps } from '../../utils/utils'
 
 const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) => {
-  const [sectionTitle, setSectionTitle] = useState();
+  const [listTitle, setListTitle] = useState();
   const [addList, setAddList] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleSetSectionTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSectionTitle(event.target.value)
+    setListTitle(event.target.value)
   }
 
-  const handleSubmitSectionTitle = () => {
-    const titleId = uuidv4()
-    dispatch(createSection(sectionTitle, titleId))
+  const handleSubmitList = () => {
+    const listId = uuidv4()
+    dispatch(createList(listTitle, listId))
     setAddList(false)
   }
 
@@ -35,8 +35,10 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
   const {
     lists
   } = useSelector((state: myState) => ({
-    lists: state.titles,
+    lists: state.lists,
   }), shallowEqual)
+
+  console.log(lists)
 
 
 
@@ -65,7 +67,7 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
               <div className='list-title'>
                 <input type="text" placeholder='Enter list title' onChange={handleSetSectionTitle} autoFocus />
                 <div>
-                  <button onClick={handleSubmitSectionTitle}>Add Card</button>
+                  <button onClick={handleSubmitList}>Add List</button>
                   <FontAwesomeIcon icon={faPlus} />
                 </div>
               </div>

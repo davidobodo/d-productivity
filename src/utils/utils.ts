@@ -1,12 +1,23 @@
+// export interface myState {
+//     titles: {
+//         [key: number]: string
+//     },
+//     tasks: {
+//         [taskId: number]: {
+//             [key: string]: number | string
+//         }
+//     }
+// }
+
 export interface myState {
-    titles: {
+    lists: {
         [key: number]: string
     },
-    tasks: {
-        [taskId: number]: {
+    cards: {
+        [key: number]: {
             [key: string]: number | string
         }
-    }
+    },
 }
 
 export interface HomeProps {
@@ -20,10 +31,10 @@ export interface Action {
     type: string,
     error: string,
     payload: any,
-    title: string,
+    listTitle: string,
+    listId: string | number
     taskId: string | number,
     taskDetails: string | number,
-    titleId: string | number
 }
 
 export const convertArrayToObject = (array: any, key: string) => {

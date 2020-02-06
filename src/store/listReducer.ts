@@ -9,12 +9,12 @@ const initialState = {
 }
 
 export const listReducer = (state = initialState, action: Action) => {
-    const { type, title } = action;
+    const { type, listTitle, listId } = action;
     switch (type) {
         case CREATE_LIST:
             return {
                 ...state,
-
+                [listId]: listTitle,
             };
         case DELETE_LIST:
             return {

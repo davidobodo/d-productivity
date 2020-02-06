@@ -6,11 +6,11 @@ import {
     DRAG_HAPPENED
 } from "./actionTypes";
 
-export const createSection = (title: string, titleId: number | string) => {
+export const createList = (listTitle: string, listId: number | string) => {
     return {
         type: CREATE_LIST,
-        title,
-        titleId
+        listTitle,
+        listId
     }
 }
 
