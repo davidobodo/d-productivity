@@ -8,12 +8,9 @@ import List from '../../components/List';
 import { createSection } from '../../store/actions';
 import { myState } from '../../utils/utils';
 import { Droppable } from 'react-beautiful-dnd';
+import { HomeProps } from '../../utils/utils'
 
-interface Props {
-  openBoard: any
-}
-
-const Board: React.FunctionComponent<Props> = ({ openBoard }) => {
+const Board: React.FunctionComponent<HomeProps> = ({ openBoard }) => {
   const [sectionTitle, setSectionTitle] = useState();
   const [addList, setAddList] = useState(false);
 

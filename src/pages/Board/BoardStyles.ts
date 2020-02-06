@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-
-interface Prop {
-  openBoard: any
-}
+import { HomeProps } from '../../utils/utils';
 
 
-export const Wrapper = styled.div<Prop>`
+
+
+export const Wrapper = styled.div<HomeProps>`
 position: absolute;
 z-index: 2;
 height: calc(100vh - 80px);

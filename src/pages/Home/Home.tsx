@@ -1,13 +1,9 @@
 import React from 'react';
 import { HomeWrapper } from './HomeStyles';
 import Shapes from '../../components/Shapes';
-import { url } from 'inspector';
+import { HomeProps } from '../../utils/utils'
 
-interface Props {
-    handleSetOpenBoard: any,
-}
-
-const Home: React.FunctionComponent<Props> = ({ handleSetOpenBoard }) => {
+const Home: React.FunctionComponent<HomeProps> = ({ handleSetOpenBoard }) => {
     return (
         <HomeWrapper>
             <div className="section-one">

@@ -9,6 +9,11 @@ export interface myState {
     }
 }
 
+export interface HomeProps {
+    openBoard?: any,
+    handleSetOpenBoard?: any,
+}
+
 export const convertArrayToObject = (array: any, key: string) => {
     const initialValue = {};
     return array.reduce((obj: any, item: any) => {
