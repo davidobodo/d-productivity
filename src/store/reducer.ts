@@ -30,7 +30,7 @@ const initialState: myState = {
 };
 
 const reducer = (state = initialState, action: Action) => {
-    const { type, error, taskId, title, titleId, taskDetails } = action;
+    const { type, taskId, title, titleId, taskDetails } = action;
     switch (type) {
         case CREATE_SECTION:
             return {
@@ -66,7 +66,6 @@ const reducer = (state = initialState, action: Action) => {
                 droppableIdEnd,
                 droppableIndexStart,
                 droppableIndexEnd,
-                draggableId,
                 type
             } = action.payload;
             if (type === "list") {
@@ -93,13 +92,10 @@ const reducer = (state = initialState, action: Action) => {
             }
 
             if (droppableIdStart !== droppableIdEnd) {
-                console.log(droppableIndexStart, droppableIndexEnd)
-                console.log(droppableIdStart, droppableIdEnd)
                 const myArray = Object.values(state.tasks);
                 const movedCard = myArray.splice(droppableIndexStart, 1);
                 movedCard[0].titleId = droppableIdEnd;
                 myArray.splice(droppableIndexEnd, 0, ...movedCard);
-                console.log(myArray)
                 const convertedArray = convertArrayToObject(myArray, 'taskId');
                 return {
                     ...state,

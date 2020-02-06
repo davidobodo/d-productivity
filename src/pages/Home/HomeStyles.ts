@@ -42,7 +42,7 @@ export const HomeWrapper = styled.div<HomeProps>`
             opacity: 0.6;
         }
 
-        a{
+        button{
             font-size: 17px;
             font-weight: 600;
             cursor: pointer;

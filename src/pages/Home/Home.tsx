@@ -1,6 +1,5 @@
 import React from 'react';
 import { HomeWrapper } from './HomeStyles';
-import Shapes from '../../components/Shapes';
 import { HomeProps } from '../../utils/utils'
 
 const Home: React.FunctionComponent<HomeProps> = ({ openBoard, handleSetOpenBoard, handleSetCloseBoard }) => {
@@ -58,7 +57,7 @@ const Home: React.FunctionComponent<HomeProps> = ({ openBoard, handleSetOpenBoar
             <div className="section-four">
                 <h1>Your whole <br /> mind <br /> in one place</h1>
                 <p>Find out how productive you could be.</p>
-                <a onClick={handleSetOpenBoard}>Start Now</a>
+                <button onClick={handleSetOpenBoard}>Start Now</button>
             </div>
             <div className="section-five shape-section">
                 <div style={{
@@ -107,9 +106,9 @@ const Home: React.FunctionComponent<HomeProps> = ({ openBoard, handleSetOpenBoar
                     borderBottomRightRadius: '50%',
                 }} />
             </div>
-            <a
+            <button
                 className="close"
-                onClick={handleSetCloseBoard}>Close</a>
+                onClick={handleSetCloseBoard}>Close</button>
         </HomeWrapper>
     )
 }
