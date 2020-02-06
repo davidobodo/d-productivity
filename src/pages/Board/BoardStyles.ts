@@ -6,9 +6,6 @@ interface Prop {
 
 
 export const Wrapper = styled.div<Prop>`
-transition: all 1s ease-in-out;
-
-
 position: absolute;
 z-index: 2;
 height: calc(100vh - 80px);
@@ -20,6 +17,8 @@ margin-left: 30px;
 background-color: #6e1fd8;
 border-radius: 15px;
 overflow-x: scroll;
+
+${({ openBoard }) => openBoard && 'animation: anim-shake 1s ease-in-out;'}
 
 ${({ openBoard }) => !openBoard && `
       width: 50px;
@@ -100,5 +99,36 @@ header{
       margin-right: 10px;
   }
 }
+}
+
+@keyframes anim-shake{
+  0%{
+    width: 50px;
+  }
+
+  50%{
+    width: calc(100vw - 60px);
+    transform: translateX(20px);
+  }
+
+  60%{
+    transform: translateX(-15px)
+  }
+  
+  70%{
+    transform: translateX(11px)
+  }
+  
+  80%{
+    transform: translateX(-7px)
+  }
+  
+  90%{
+    transform: translateX(3px)
+  }
+  
+  100%{
+    transform: translateX(0px)
+  }
 }
 `
