@@ -111,6 +111,7 @@ const Home: React.FunctionComponent<Props> = ({ handleSetOpenBoard }) => {
                     borderBottomRightRadius: '50%',
                 }} />
             </div>
+            <a className="close">Close</a>
         </HomeWrapper>
     )
 }

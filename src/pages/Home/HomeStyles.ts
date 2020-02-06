@@ -64,6 +64,26 @@ export const HomeWrapper = styled.div`
         grid-gap: 20px;
     }
 
+    .close{
+        color: #ffffff;
+        opacity: 0.5;
+        position: fixed;
+        bottom: 15px;
+        right: 40px;
+
+        &:before{
+            content: '';
+            width: 40px;
+            height: 3px;
+            position: fixed;
+            background-color: #ffffff;
+            opacity: 0.5;
+            bottom: 15px;
+            right: 85px;
+            margin-bottom: 6px;
+        }
+    }
+
     @media(max-width: 765px){
         grid-template-columns: 1fr;
 
