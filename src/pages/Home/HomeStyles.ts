@@ -3,17 +3,15 @@ import styled from 'styled-components';
 export const HomeWrapper = styled.div`
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
-    height: 100vh;
+    grid-auto-rows: 1fr;
+    grid-gap: 20px;
+    min-height: 100vh;
     width: 100%;
-    padding-left: 10vw;
-    padding-top: 40px;
+    padding: 40px 40px 40px 10vw;
     background-color: #19233d;
 
     .left-section{
-        display: grid;
-        grid-auto-rows: 1fr;
-        color: #575d6d;
-
+        
         &__top{
             padding-top: 60px;
 
@@ -22,6 +20,7 @@ export const HomeWrapper = styled.div`
                 font-weight: 400;
                 padding-left: 25px;
                 border-left: 1px solid #761be7;
+                color: #575d6d;
             }
         }
 
@@ -57,5 +56,11 @@ export const HomeWrapper = styled.div`
                 }
             }
         }
+    }
+
+    .shape-section{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
     }
 `
