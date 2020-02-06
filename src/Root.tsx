@@ -51,11 +51,17 @@ const Root = () => {
 
   }
 
+  const handleSetCloseBoard = () => {
+    setOpenBoard(false)
+  }
+
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <GlobalStyles />
       <Board openBoard={openBoard} />
-      <Home handleSetOpenBoard={() => setOpenBoard(true)} />
+      <Home
+        handleSetOpenBoard={() => setOpenBoard(true)}
+        handleSetCloseBoard={handleSetCloseBoard} />
     </DragDropContext>
   )
 }

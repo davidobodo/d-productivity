@@ -12,6 +12,7 @@ export interface myState {
 export interface HomeProps {
     openBoard?: any,
     handleSetOpenBoard?: any,
+    handleSetCloseBoard?: any,
 }
 
 export const convertArrayToObject = (array: any, key: string) => {

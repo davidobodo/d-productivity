@@ -70,6 +70,7 @@ export const HomeWrapper = styled.div`
         position: fixed;
         bottom: 15px;
         right: 40px;
+        cursor: pointer;
 
         &:before{
             content: '';

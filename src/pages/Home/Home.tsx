@@ -3,7 +3,7 @@ import { HomeWrapper } from './HomeStyles';
 import Shapes from '../../components/Shapes';
 import { HomeProps } from '../../utils/utils'
 
-const Home: React.FunctionComponent<HomeProps> = ({ handleSetOpenBoard }) => {
+const Home: React.FunctionComponent<HomeProps> = ({ handleSetOpenBoard, handleSetCloseBoard }) => {
     return (
         <HomeWrapper>
             <div className="section-one">
@@ -107,7 +107,9 @@ const Home: React.FunctionComponent<HomeProps> = ({ handleSetOpenBoard }) => {
                     borderBottomRightRadius: '50%',
                 }} />
             </div>
-            <a className="close">Close</a>
+            <a
+                className="close"
+                onClick={handleSetCloseBoard}>Close</a>
         </HomeWrapper>
     )
 }
