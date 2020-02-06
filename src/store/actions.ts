@@ -1,21 +1,21 @@
 import {
-    CREATE_TASK,
-    DELETE_TASK,
-    CREATE_SECTION,
-    DELETE_SECTION,
+    CREATE_CARD,
+    DELETE_CARD,
+    CREATE_LIST,
+    DELETE_LIST,
     DRAG_HAPPENED
 } from "./actionTypes";
 
 export const createSection = (title: string, titleId: number | string) => {
     return {
-        type: CREATE_SECTION,
+        type: CREATE_LIST,
         title,
         titleId
     }
 }
 
 export const deleteSection = (titleId: string | number | undefined) => ({
-    type: DELETE_SECTION,
+    type: DELETE_LIST,
     titleId
 })
 
@@ -25,7 +25,7 @@ export const createTask = (
     titleId: string | number | undefined
 ) => {
     return {
-        type: CREATE_TASK,
+        type: CREATE_CARD,
         taskId,
         taskDetails,
         titleId
@@ -33,7 +33,7 @@ export const createTask = (
 }
 
 export const deleteTask = (taskId: string | number) => ({
-    type: DELETE_TASK,
+    type: DELETE_CARD,
     taskId
 })
 

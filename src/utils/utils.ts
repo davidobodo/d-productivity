@@ -16,6 +16,16 @@ export interface HomeProps {
     handleSetCloseBoard?: any,
 }
 
+export interface Action {
+    type: string,
+    error: string,
+    payload: any,
+    title: string,
+    taskId: string | number,
+    taskDetails: string | number,
+    titleId: string | number
+}
+
 export const convertArrayToObject = (array: any, key: string) => {
     const initialValue = {};
     return array.reduce((obj: any, item: any) => {

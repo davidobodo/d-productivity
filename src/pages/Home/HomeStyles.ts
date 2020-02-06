@@ -46,6 +46,10 @@ export const HomeWrapper = styled.div<HomeProps>`
             font-size: 17px;
             font-weight: 600;
             cursor: pointer;
+            color: #ffffff;
+            background-color: transparent;
+            border: none;
+            outline: none;
 
             &:before{
                 content: '';
@@ -72,6 +76,9 @@ export const HomeWrapper = styled.div<HomeProps>`
         bottom: 15px;
         right: 40px;
         cursor: pointer;
+        outline: none;
+        background-color: transparent;
+        border: none;
         ${({ openBoard }) => openBoard && 'display: block'};
         ${({ openBoard }) => !openBoard && 'display: none'};
 

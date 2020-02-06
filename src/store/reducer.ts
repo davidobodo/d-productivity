@@ -1,27 +1,19 @@
 import {
-    CREATE_TASK,
-    DELETE_TASK,
-    CREATE_SECTION,
+    CREATE_CARD,
+    DELETE_CARD,
+    CREATE_LIST,
     DRAG_HAPPENED,
-    DELETE_SECTION
+    DELETE_LIST
 } from "./actionTypes";
 import {
     myState,
     convertArrayToObject,
     convertArrayToObject2,
-    cloneObject
+    cloneObject,
+    Action
 } from '../utils/utils';
 
 
-interface Action {
-    type: string,
-    error: string,
-    payload: any,
-    title: string,
-    taskId: string | number,
-    taskDetails: string | number,
-    titleId: string | number
-}
 
 
 const initialState: myState = {
@@ -32,7 +24,7 @@ const initialState: myState = {
 const reducer = (state = initialState, action: Action) => {
     const { type, taskId, title, titleId, taskDetails } = action;
     switch (type) {
-        case CREATE_SECTION:
+        case CREATE_LIST:
             return {
                 ...state,
                 titles: {
@@ -40,7 +32,7 @@ const reducer = (state = initialState, action: Action) => {
                     [titleId]: title
                 },
             }
-        case CREATE_TASK:
+        case CREATE_CARD:
             return {
                 ...state,
                 tasks: {
@@ -52,11 +44,11 @@ const reducer = (state = initialState, action: Action) => {
                     }
                 }
             };
-        case DELETE_TASK:
+        case DELETE_CARD:
             const clonedState = cloneObject(state);
             delete clonedState.tasks[taskId as number];
             return clonedState;
-        case DELETE_SECTION:
+        case DELETE_LIST:
             const clonedState2 = cloneObject(state);
             delete clonedState2.titles[titleId as number];
             return clonedState2;
