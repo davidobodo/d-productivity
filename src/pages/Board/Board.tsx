@@ -38,10 +38,6 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
     lists: state.lists,
   }), shallowEqual)
 
-  console.log(lists)
-
-
-
   return (
     <Wrapper openBoard={openBoard} closeBoard={closeBoard}>
       <header>d-Productivity</header>
@@ -58,8 +54,8 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
             {lists && Object.entries(lists).map((list, i) => {
               return <List
                 key={list[0]}
-                title={list[1]}
-                titleId={list[0]}
+                listTitle={list[1]}
+                listId={list[0]}
                 index={i} />
             })}
             {provided.placeholder}

@@ -29,12 +29,10 @@ export interface HomeProps {
 
 export interface Action {
     type: string,
-    error: string,
-    payload: any,
     listTitle: string,
     listId: string | number
-    taskId: string | number,
-    taskDetails: string | number,
+    cardId: string | number,
+    cardDetails: string | number,
 }
 
 export const convertArrayToObject = (array: any, key: string) => {

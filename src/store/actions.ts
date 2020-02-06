@@ -19,16 +19,16 @@ export const deleteSection = (titleId: string | number | undefined) => ({
     titleId
 })
 
-export const createTask = (
-    taskId: string | number,
-    taskDetails: string | number,
-    titleId: string | number | undefined
+export const createCard = (
+    cardId: string | number,
+    cardDetails: string | number,
+    listId: string | number | undefined
 ) => {
     return {
         type: CREATE_CARD,
-        taskId,
-        taskDetails,
-        titleId
+        cardId,
+        cardDetails,
+        listId
     }
 }
 

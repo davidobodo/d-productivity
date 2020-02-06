@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { createTask, deleteSection } from '../store/actions';
+import { createCard, deleteSection } from '../store/actions';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { myState } from '../utils/utils';
 import uuidv4 from 'uuid';
@@ -14,76 +14,78 @@ import { ListWrapper } from './ListStyles';
 
 
 interface Props {
-    title: string,
+    listTitle: string,
     tasks: Array<string | number>,
-    titleId: string | number,
+    listId: string | number,
     index: number,
 }
 
 
 
-const List: React.FunctionComponent<Partial<Props>> = ({ title, tasks, titleId, index }) => {
+const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listId, index }) => {
     const [addTask, setAddTask] = useState(false);
-    const [taskDetails, setTaskDetails] = useState('');
+    const [cardDetails, setCardDetails] = useState('');
     const dispatch = useDispatch();
 
-    const handleAddTask = () => {
+    const handleAddCard = () => {
         setAddTask(!addTask);
     }
 
     const handleSetTaskDetails = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setTaskDetails(event.target.value)
+        setCardDetails(event.target.value)
     }
 
-    const handleSubmitTask = () => {
-        const taskId = uuidv4()
-        dispatch(createTask(taskId, taskDetails, titleId));
-        handleAddTask();
+    const handleSubmitCard = () => {
+        const cardId = uuidv4()
+        dispatch(createCard(cardId, cardDetails, listId));
+        handleAddCard();
     }
 
     const handleDeleteList = () => {
-        dispatch(deleteSection(titleId))
+        dispatch(deleteSection(listId))
     }
 
     const {
-        allTasks
+        allCards
     } = useSelector((state: myState) => ({
-        allTasks: state.cards,
+        allCards: state.cards,
     }), shallowEqual)
 
 
+    console.log(allCards)
+
+
     return (
-        <Draggable draggableId={String(titleId)} index={index as number}>
+        <Draggable draggableId={String(listId)} index={index as number}>
             {provided => (
                 <div
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >
-                    <Droppable droppableId={String(titleId)} type="card">
+                    <Droppable droppableId={String(listId)} type="card">
                         {provided => (
                             <ListWrapper
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
                                 <div className='List__title'>
-                                    <span className='List__title__header'>{title}</span>
-                                    {/* <span className='List__title__options'>...</span> */}
+                                    <span className='List__title__header'>{listTitle}</span>
                                     <FontAwesomeIcon icon={faPlus} onClick={handleDeleteList} />
                                 </div>
-                                {allTasks && Object
-                                    .values(allTasks)
-                                    .filter(task => titleId === task.titleId)
-                                    .map(({ taskId, taskDetails }, i) => <Card key={taskId} content={taskDetails} index={i} taskId={taskId} />)}
+                                {allCards && Object
+                                    .values(allCards)
+                                    .filter(task => listId === task.listId)
+                                    .map(({ cardId, cardDetails }, i) => <Card key={cardId} content={cardDetails} index={i} taskId={cardId} />)}
                                 {addTask &&
                                     <TextArea
-                                        handleShowTextArea={handleAddTask}
-                                        handleSubmitTextArea={handleSubmitTask}
+                                        handleShowTextArea={handleAddCard}
+                                        handleSubmitTextArea={handleSubmitCard}
                                         handleUpdateTextArea={handleSetTaskDetails}
                                         placeholder='Enter details for this task'
                                         buttonText='Add Card' />}
                                 {provided.placeholder}
-                                <button onClick={handleAddTask} className='btn-add-task'>
+                                <button onClick={handleAddCard} className='btn-add-task'>
                                     <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
                                 </button>
                             </ListWrapper>
