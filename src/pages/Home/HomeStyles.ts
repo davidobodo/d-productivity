@@ -9,6 +9,8 @@ export const HomeWrapper = styled.div`
     width: 100%;
     padding: 40px 40px 40px 10vw;
     background-color: #19233d;
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://images.unsplash.com/photo-1502514841534-dceabea28dad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMjU4fQ&auto=format&fit=crop&w=2728&q=80") ;
+    background-size: cover;
 
     .section-one{
         padding-top: 60px;
