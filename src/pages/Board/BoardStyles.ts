@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 
 export const Wrapper = styled.div`
+position: absolute;
+z-index: -1;
 height: 100vh;
 padding-top: 5rem;
 padding-left: 5rem;

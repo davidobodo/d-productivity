@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector, shallowEqual, } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Wrapper } from './AppStyles';
+import { Wrapper } from './BoardStyles';
 import uuidv4 from 'uuid';
-import List from './components/List';
-import { createSection } from './store/actions';
-import { myState } from './utils/utils';
+import List from '../../components/List';
+import { createSection } from '../../store/actions';
+import { myState } from '../../utils/utils';
 import { Droppable } from 'react-beautiful-dnd';
 
 
-const App = () => {
+const Board = () => {
   const [sectionTitle, setSectionTitle] = useState();
   const [addList, setAddList] = useState(false);
   const dispatch = useDispatch();
@@ -79,4 +79,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default Board;

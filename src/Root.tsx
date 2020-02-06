@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { createGlobalStyle } from 'styled-components';
-import App from './App';
+import Board from './pages/Board/Board';
+import Home from './pages/Home/Home'
 import { sortTasks } from './store/actions'
 
 const GlobalStyles = createGlobalStyle`
@@ -52,7 +53,8 @@ const Root = () => {
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <GlobalStyles />
-      <App />
+      <Board />
+      <Home />
     </DragDropContext>
   )
 }
