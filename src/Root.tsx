@@ -64,6 +64,7 @@ const Root = () => {
         openBoard={openBoard}
         closeBoard={closeBoard} />
       <Home
+        openBoard={openBoard}
         handleSetOpenBoard={() => setOpenBoard(true)}
         handleSetCloseBoard={handleSetCloseBoard} />
     </DragDropContext>

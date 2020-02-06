@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { HomeProps } from '../../utils/utils'
 
-export const HomeWrapper = styled.div`
+export const HomeWrapper = styled.div<HomeProps>`
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: 1fr;
@@ -71,6 +72,9 @@ export const HomeWrapper = styled.div`
         bottom: 15px;
         right: 40px;
         cursor: pointer;
+        ${({ openBoard }) => openBoard && 'display: block'};
+        ${({ openBoard }) => !openBoard && 'display: none'};
+
 
         &:before{
             content: '';

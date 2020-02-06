@@ -3,9 +3,9 @@ import { HomeWrapper } from './HomeStyles';
 import Shapes from '../../components/Shapes';
 import { HomeProps } from '../../utils/utils'
 
-const Home: React.FunctionComponent<HomeProps> = ({ handleSetOpenBoard, handleSetCloseBoard }) => {
+const Home: React.FunctionComponent<HomeProps> = ({ openBoard, handleSetOpenBoard, handleSetCloseBoard }) => {
     return (
-        <HomeWrapper>
+        <HomeWrapper openBoard={openBoard}>
             <div className="section-one">
                 <h2>Welcome to d-productivity</h2>
             </div>
