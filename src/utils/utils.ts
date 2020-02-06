@@ -11,6 +11,7 @@ export interface myState {
 
 export interface HomeProps {
     openBoard?: any,
+    closeBoard?: any,
     handleSetOpenBoard?: any,
     handleSetCloseBoard?: any,
 }

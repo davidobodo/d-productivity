@@ -10,7 +10,7 @@ import { myState } from '../../utils/utils';
 import { Droppable } from 'react-beautiful-dnd';
 import { HomeProps } from '../../utils/utils'
 
-const Board: React.FunctionComponent<HomeProps> = ({ openBoard }) => {
+const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) => {
   const [sectionTitle, setSectionTitle] = useState();
   const [addList, setAddList] = useState(false);
 
@@ -41,7 +41,7 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard }) => {
 
 
   return (
-    <Wrapper openBoard={openBoard}>
+    <Wrapper openBoard={openBoard} closeBoard={closeBoard}>
       <header>d-Productivity</header>
       <Droppable
         droppableId="all-lists"

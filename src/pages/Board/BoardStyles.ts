@@ -17,6 +17,7 @@ background-color: #6e1fd8;
 border-radius: 15px;
 overflow-x: scroll;
 
+${({ closeBoard }) => closeBoard && 'animation: close-anim-shake 1s ease-in-out;'}
 ${({ openBoard }) => openBoard && 'animation: anim-shake 1s ease-in-out;'}
 
 ${({ openBoard }) => !openBoard && `
@@ -98,7 +99,7 @@ header{
       margin-right: 10px;
   }
 }
-}
+};
 
 @keyframes anim-shake{
   0%{
@@ -129,5 +130,36 @@ header{
   100%{
     transform: translateX(0px)
   }
-}
+};
+
+    @keyframes close-anim-shake{
+      0%{
+        width: calc(100vw - 60px);
+      }
+      
+      50%{
+        width: 50px;
+        transform: translateX(-20px);
+      }
+
+      60%{
+        transform: translateX(15px)
+      }
+      
+      70%{
+        transform: translateX(-11px)
+      }
+      
+      80%{
+        transform: translateX(7px)
+      }
+      
+      90%{
+        transform: translateX(-3px)
+      }
+      
+      100%{
+        transform: translateX(0px)
+      }
+    }
 `

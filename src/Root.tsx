@@ -29,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
 const Root = () => {
   const dispatch = useDispatch()
   const [openBoard, setOpenBoard] = useState(false);
+  const [closeBoard, setCloseBoard] = useState(false);
 
   const handleOnDragEnd = (result: any) => {
     const { destination, source, draggableId, type } = result;
@@ -52,13 +53,16 @@ const Root = () => {
   }
 
   const handleSetCloseBoard = () => {
+    setCloseBoard(true)
     setOpenBoard(false)
   }
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <GlobalStyles />
-      <Board openBoard={openBoard} />
+      <Board
+        openBoard={openBoard}
+        closeBoard={closeBoard} />
       <Home
         handleSetOpenBoard={() => setOpenBoard(true)}
         handleSetCloseBoard={handleSetCloseBoard} />
