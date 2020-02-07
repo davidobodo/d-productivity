@@ -4,7 +4,7 @@ import {
     DRAG_HAPPENED_CARD,
 
 } from "./actionTypes";
-import { Action, cloneObject, myState } from "../utils/utils";
+import { Action, cloneObject } from "../utils/utils";
 
 const initialState = {
 

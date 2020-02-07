@@ -5,7 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 import Board from './pages/Board/Board';
 import Home from './pages/Home/Home';
 import { sortCard, sortList } from './store/actions';
-import { myState, convertArrayToObject, cloneObject, convertArrayToObject2 } from './utils/utils';
+import { myState, convertArrayToObject, convertArrayToObject2 } from './utils/utils';
 
 const GlobalStyles = createGlobalStyle`
   *, 
