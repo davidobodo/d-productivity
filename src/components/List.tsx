@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { createCard, deleteSection } from '../store/actions';
+import { createCard, deleteList } from '../store/actions';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { myState } from '../utils/utils';
 import uuidv4 from 'uuid';
@@ -42,7 +42,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
     }
 
     const handleDeleteList = () => {
-        dispatch(deleteSection(listId))
+        dispatch(deleteList(listId))
     }
 
     const {

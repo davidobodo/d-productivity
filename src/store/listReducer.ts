@@ -3,7 +3,7 @@ import {
     DELETE_LIST,
     DRAG_HAPPENED_LIST,
 } from "./actionTypes";
-import { Action } from "../utils/utils";
+import { Action, cloneObject } from "../utils/utils";
 
 const initialState = {
 
@@ -18,9 +18,9 @@ export const listReducer = (state = initialState, action: Action) => {
                 [listId]: listTitle,
             };
         case DELETE_LIST:
-            return {
-                ...state
-            };
+            const clonedState: any = cloneObject(state);
+            delete clonedState[listId]
+            return clonedState;
         case DRAG_HAPPENED_LIST:
             return payload
         default:

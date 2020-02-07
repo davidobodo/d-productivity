@@ -15,9 +15,9 @@ export const createList = (listTitle: string, listId: number | string) => {
     }
 }
 
-export const deleteSection = (titleId: string | number | undefined) => ({
+export const deleteList = (listId: string | number | undefined) => ({
     type: DELETE_LIST,
-    titleId
+    listId
 })
 
 export const createCard = (
