@@ -1,14 +1,3 @@
-// export interface myState {
-//     titles: {
-//         [key: number]: string
-//     },
-//     tasks: {
-//         [taskId: number]: {
-//             [key: string]: number | string
-//         }
-//     }
-// }
-
 export interface myState {
     lists: {
         [key: number]: string
