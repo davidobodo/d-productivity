@@ -3,7 +3,8 @@ import {
     DELETE_CARD,
     CREATE_LIST,
     DELETE_LIST,
-    DRAG_HAPPENED
+    DRAG_HAPPENED_CARD,
+    DRAG_HAPPENED_LIST,
 } from "./actionTypes";
 
 export const createList = (listTitle: string, listId: number | string) => {
@@ -37,23 +38,16 @@ export const deleteTask = (taskId: string | number) => ({
     taskId
 })
 
-export const sort = (
-    // droppableIdStart?: any,
-    // droppableIdEnd?: any,
-    // droppableIndexStart?: any,
-    // droppableIndexEnd?: any,
-    // draggableId?: any,
-    // dragType?: any,
-    payload?: any
-) => {
+export const sortCard = (payload?: any) => {
     return {
-        type: DRAG_HAPPENED,
-        // droppableIdStart,
-        // droppableIdEnd,
-        // droppableIndexStart,
-        // droppableIndexEnd,
-        // draggableId,
-        // dragType,
+        type: DRAG_HAPPENED_CARD,
+        payload
+    }
+}
+
+export const sortList = (payload?: any) => {
+    return {
+        type: DRAG_HAPPENED_LIST,
         payload
     }
 }

@@ -1,7 +1,7 @@
 import {
     CREATE_CARD,
     DELETE_CARD,
-    DRAG_HAPPENED,
+    DRAG_HAPPENED_CARD,
 
 } from "./actionTypes";
 import { Action } from "../utils/utils";
@@ -26,7 +26,7 @@ export const cardReducer = (state = initialState, action: Action) => {
             return {
                 ...state,
             };
-        case DRAG_HAPPENED:
+        case DRAG_HAPPENED_CARD:
             return payload;
         default:
             return state;

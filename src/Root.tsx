@@ -4,8 +4,8 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { createGlobalStyle } from 'styled-components';
 import Board from './pages/Board/Board';
 import Home from './pages/Home/Home';
-import { sort } from './store/actions';
-import { myState, convertArrayToObject, cloneObject } from './utils/utils';
+import { sortCard, sortList } from './store/actions';
+import { myState, convertArrayToObject, cloneObject, convertArrayToObject2 } from './utils/utils';
 
 const GlobalStyles = createGlobalStyle`
   *, 
@@ -47,6 +47,16 @@ const Root = () => {
       return;
     }
 
+    if (dragType === "list") {
+      const lists = Object.entries(allLists);
+      const movedList = lists.splice(source.index, 1);
+      lists.splice(destination.index, 0, ...movedList);
+
+      const convertedArray = convertArrayToObject2(lists);
+
+      dispatch(sortList(convertedArray))
+    }
+
     if (source.droppableId === destination.droppableId) {
       const newStateArray = Object
         .values(allCards)
@@ -64,7 +74,7 @@ const Root = () => {
 
       const convertedArray = convertArrayToObject(remainingList, 'cardId');
 
-      dispatch(sort(convertedArray))
+      dispatch(sortCard(convertedArray))
     }
 
     if (source.droppableId !== destination.droppableId) {
@@ -88,7 +98,7 @@ const Root = () => {
 
       const convertedArray = convertArrayToObject(remainingList, 'cardId');
 
-      dispatch(sort(convertedArray));
+      dispatch(sortCard(convertedArray));
 
     }
     // dispatch(sort(

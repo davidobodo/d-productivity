@@ -2,7 +2,7 @@ import {
     CREATE_CARD,
     DELETE_CARD,
     CREATE_LIST,
-    DRAG_HAPPENED,
+    DRAG_HAPPENED_CARD,
     DELETE_LIST
 } from "./actionTypes";
 import {
@@ -51,7 +51,7 @@ const reducer = (state = initialState, action: Action) => {
     //         const clonedState2 = cloneObject(state);
     //         delete clonedState2.titles[titleId as number];
     //         return clonedState2;
-    //     case DRAG_HAPPENED:
+    //     case DRAG_HAPPENED_CARD:
     //         const {
     //             droppableIdStart,
     //             droppableIdEnd,
