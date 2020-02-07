@@ -74,7 +74,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
                                 {allCards && Object
                                     .values(allCards)
                                     .filter(task => listId === task.listId)
-                                    .map(({ cardId, cardDetails }, i) => <Card key={cardId} content={cardDetails} index={i} taskId={cardId} />)}
+                                    .map(({ cardId, cardDetails }, i) => <Card key={cardId} content={cardDetails} index={i} cardId={cardId} />)}
                                 {addTask &&
                                     <TextArea
                                         handleShowTextArea={handleAddCard}

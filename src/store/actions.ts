@@ -33,9 +33,9 @@ export const createCard = (
     }
 }
 
-export const deleteTask = (taskId: string | number) => ({
+export const deleteCard = (cardId: string | number) => ({
     type: DELETE_CARD,
-    taskId
+    cardId
 })
 
 export const sortCard = (payload?: any) => {

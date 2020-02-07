@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Draggable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
-import { deleteTask } from '../store/actions';
+import { deleteCard } from '../store/actions';
 
 
 interface Props {
     content: string | number,
     index: number,
-    taskId: string | number,
+    cardId: string | number,
 
 }
 
@@ -43,15 +43,15 @@ const Wrapper = styled.div`
 
 
 
-const Card: React.FunctionComponent<Props> = ({ content, index, taskId }) => {
+const Card: React.FunctionComponent<Props> = ({ content, index, cardId }) => {
     const dispatch = useDispatch();
 
     const handleDeleteTask = () => {
-        dispatch(deleteTask(taskId))
+        dispatch(deleteCard(cardId))
     }
 
     return (
-        <Draggable draggableId={String(taskId)} index={index}>
+        <Draggable draggableId={String(cardId)} index={index}>
             {provided => (
                 <Wrapper
                     ref={provided.innerRef}

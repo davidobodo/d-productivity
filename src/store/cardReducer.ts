@@ -4,7 +4,7 @@ import {
     DRAG_HAPPENED_CARD,
 
 } from "./actionTypes";
-import { Action } from "../utils/utils";
+import { Action, cloneObject, myState } from "../utils/utils";
 
 const initialState = {
 
@@ -23,9 +23,9 @@ export const cardReducer = (state = initialState, action: Action) => {
                 }
             };
         case DELETE_CARD:
-            return {
-                ...state,
-            };
+            const clonedState: any = cloneObject(state)
+            delete clonedState[cardId];
+            return clonedState;
         case DRAG_HAPPENED_CARD:
             return payload;
         default:
