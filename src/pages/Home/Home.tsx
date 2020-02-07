@@ -57,6 +57,7 @@ const Home: React.FunctionComponent<HomeProps> = ({ openBoard, handleSetOpenBoar
             <div className="section-four">
                 <h1>Your whole <br /> mind <br /> in one place</h1>
                 <p>Find out how productive you could be.</p>
+                <span></span>
                 <button onClick={handleSetOpenBoard}>Start Now</button>
             </div>
             <div className="section-five shape-section">

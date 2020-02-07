@@ -42,6 +42,15 @@ export const HomeWrapper = styled.div<HomeProps>`
             opacity: 0.6;
         }
 
+        span{
+            display: inline-block;
+            width: 60px;
+            height: 2px;
+            margin-right: 25px;
+            margin-bottom: 5px;
+            background-color:#ffffff;
+        }
+
         button{
             font-size: 17px;
             font-weight: 600;
@@ -50,16 +59,8 @@ export const HomeWrapper = styled.div<HomeProps>`
             background-color: transparent;
             border: none;
             outline: none;
+            animation: grow-anim 3s ease-in-out infinite;
 
-            &:before{
-                content: '';
-                display: inline-block;
-                width: 60px;
-                height: 2px;
-                margin-right: 25px;
-                margin-bottom: 5px;
-                background-color:#ffffff;
-            }
         }
     }
 
@@ -92,7 +93,7 @@ export const HomeWrapper = styled.div<HomeProps>`
             opacity: 0.5;
             bottom: 15px;
             right: 85px;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
     }
 
@@ -112,6 +113,33 @@ export const HomeWrapper = styled.div<HomeProps>`
 
         .shape-section{
             display: none;
+        }
+    }
+
+    @keyframes grow-anim{
+        0%{
+            color: #c92e58;
+            transform: scale(1.3);
+        }
+        20%{
+            color: #6fc08a;
+            transform: scale(0.8);
+        }
+        40%{
+            color: #6e1fd8;
+            transform: scale(1.3);
+        }
+        60%{
+            color: #d8841f;
+            transform: scale(0.8);
+        }
+        80%{
+            color: purple;
+            transform: scale(1.3);
+        }
+        100%{
+            color: #000000;
+            transform: scale(1.3);
         }
     }
 `
