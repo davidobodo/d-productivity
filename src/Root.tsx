@@ -66,6 +66,31 @@ const Root = () => {
 
       dispatch(sort(convertedArray))
     }
+
+    if (source.droppableId !== destination.droppableId) {
+      const newState = allCards;
+      newState[draggableId].listId = destination.droppableId;
+
+      const newStateArray = Object.values(newState);
+
+      const activeList = newStateArray.filter(card => card.listId === destination.droppableId);
+      const remainingList = newStateArray.filter(card => card.listId !== destination.droppableId);
+
+      const handleGetIndex = (card: any) => {
+        return card.cardId === draggableId
+      }
+
+      const movedCardIndex = activeList.findIndex(handleGetIndex)
+      const movedCard = activeList.splice(movedCardIndex, 1);
+
+      activeList.splice(destination.index, 0, ...movedCard);
+      remainingList.push(...activeList)
+
+      const convertedArray = convertArrayToObject(remainingList, 'cardId');
+
+      dispatch(sort(convertedArray));
+
+    }
     // dispatch(sort(
     //   source.droppableId,
     //   destination.droppableId,
