@@ -29,6 +29,7 @@ export interface HomeProps {
 
 export interface Action {
     type: string,
+    payload: any,
     listTitle: string,
     listId: string | number
     cardId: string | number,

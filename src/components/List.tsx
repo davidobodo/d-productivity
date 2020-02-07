@@ -52,8 +52,6 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
     }), shallowEqual)
 
 
-    console.log(allCards)
-
 
     return (
         <Draggable draggableId={String(listId)} index={index as number}>

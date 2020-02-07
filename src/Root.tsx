@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { createGlobalStyle } from 'styled-components';
 import Board from './pages/Board/Board';
-import Home from './pages/Home/Home'
-import { sortTasks } from './store/actions'
+import Home from './pages/Home/Home';
+import { sort } from './store/actions';
+import { myState, convertArrayToObject, cloneObject } from './utils/utils';
 
 const GlobalStyles = createGlobalStyle`
   *, 
@@ -31,24 +32,48 @@ const Root = () => {
   const [openBoard, setOpenBoard] = useState(false);
   const [closeBoard, setCloseBoard] = useState(false);
 
+  const {
+    allLists,
+    allCards
+  } = useSelector((state: myState) => ({
+    allLists: state.lists,
+    allCards: state.cards,
+  }), shallowEqual)
+
   const handleOnDragEnd = (result: any) => {
-    const { destination, source, draggableId, type } = result;
+    const { destination, source, draggableId, type: dragType } = result;
 
     if (!destination) {
       return;
     }
 
-    // if (type === "list") {
-    //   return;
-    // }
-    dispatch(sortTasks(
-      source.droppableId,
-      destination.droppableId,
-      source.index,
-      destination.index,
-      draggableId,
-      type
-    ))
+    if (source.droppableId === destination.droppableId) {
+      const newStateArray = Object
+        .values(allCards)
+
+      const activeList = newStateArray
+        .filter(card => card.listId === source.droppableId);
+      const remainingList = newStateArray
+        .filter(card => card.listId !== source.droppableId);
+
+      //rearrage cards in activeList array
+      const movedCard = activeList.splice(source.index, 1);
+      activeList.splice(destination.index, 0, ...movedCard);
+
+      remainingList.push(...activeList)
+
+      const convertedArray = convertArrayToObject(remainingList, 'cardId');
+
+      dispatch(sort(convertedArray))
+    }
+    // dispatch(sort(
+    //   source.droppableId,
+    //   destination.droppableId,
+    //   source.index,
+    //   destination.index,
+    //   draggableId,
+    //   dragType
+    // ))
 
   }
 

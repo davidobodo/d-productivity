@@ -37,24 +37,24 @@ export const deleteTask = (taskId: string | number) => ({
     taskId
 })
 
-export const sortTasks = (
-    droppableIdStart: any,
-    droppableIdEnd: any,
-    droppableIndexStart: any,
-    droppableIndexEnd: any,
-    draggableId: any,
-    type: any,
+export const sort = (
+    // droppableIdStart?: any,
+    // droppableIdEnd?: any,
+    // droppableIndexStart?: any,
+    // droppableIndexEnd?: any,
+    // draggableId?: any,
+    // dragType?: any,
+    payload?: any
 ) => {
     return {
         type: DRAG_HAPPENED,
-        payload: {
-            droppableIdStart,
-            droppableIdEnd,
-            droppableIndexStart,
-            droppableIndexEnd,
-            draggableId,
-            type,
-        }
+        // droppableIdStart,
+        // droppableIdEnd,
+        // droppableIndexStart,
+        // droppableIndexEnd,
+        // draggableId,
+        // dragType,
+        payload
     }
 }
 
