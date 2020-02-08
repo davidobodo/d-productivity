@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "name": "d-productivity",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+}
