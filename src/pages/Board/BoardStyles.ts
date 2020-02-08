@@ -31,7 +31,14 @@ ${({ openBoard }) => !openBoard && `
 
 header{
   font-size: 5rem;
-  color: #ffffff;
+  font-style: italic;
+  color: #000000;
+  opacity: 0.5;
+  margin-bottom: 20px;
+
+  @media(max-width: 765px){
+    font-size: 3rem;
+  }
   
 }
 
