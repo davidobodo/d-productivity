@@ -15,6 +15,10 @@ background-color: #6e1fd8;
 border-radius: 15px;
 overflow-x: scroll;
 
+@media(max-width: 765px){
+  padding-left: 3rem;
+}
+
 ${({ closeBoard }) => closeBoard && 'animation: close-anim-shake 1s ease-in-out;'}
 ${({ openBoard }) => openBoard && 'animation: anim-shake 1s ease-in-out;'}
 
