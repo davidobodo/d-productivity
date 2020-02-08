@@ -7,14 +7,14 @@ export interface myState {
             [key: string]: number | string
         }
     },
-}
+};
 
 export interface HomeProps {
     openBoard?: any,
     closeBoard?: any,
     handleSetOpenBoard?: any,
     handleSetCloseBoard?: any,
-}
+};
 
 export interface Action {
     type: string,
@@ -23,7 +23,7 @@ export interface Action {
     listId: string | number
     cardId: string | number,
     cardDetails: string | number,
-}
+};
 
 export const convertArrayToObject = (array: any, key: string) => {
     const initialValue = {};
@@ -33,7 +33,7 @@ export const convertArrayToObject = (array: any, key: string) => {
             [item[key]]: item,
         };
     }, initialValue)
-}
+};
 
 export const convertArrayToObject2 = (array: any) => {
     const initialValue = {};
@@ -43,8 +43,8 @@ export const convertArrayToObject2 = (array: any) => {
             [item[0]]: item[1],
         };
     }, initialValue)
-}
+};
 
 export const cloneObject = <T>(source: T): T => {
     return JSON.parse(JSON.stringify(source)) as T;
-}
+};

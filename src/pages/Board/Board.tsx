@@ -12,6 +12,7 @@ import { HomeProps } from '../../utils/utils'
 
 const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) => {
   const [listTitle, setListTitle] = useState();
+
   const [addList, setAddList] = useState(false);
 
   const dispatch = useDispatch();
@@ -29,8 +30,6 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
   const handleAddList = () => {
     setAddList(true)
   }
-
-
 
   const {
     lists
@@ -76,6 +75,8 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
       </Droppable>
     </Wrapper>
   )
-}
+};
+
+
 
 export default Board;

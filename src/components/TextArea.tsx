@@ -1,9 +1,7 @@
 import React from 'react';
-
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
 
 interface Props {
     handleShowTextArea: any,
@@ -82,7 +80,7 @@ const TextArea: React.FunctionComponent<Partial<Props>> = ({
             </div>
         </Wrapper>
     )
-}
+};
 
 export default TextArea;
 

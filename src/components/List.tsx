@@ -11,16 +11,12 @@ import Card from './Card';
 import TextArea from './TextArea';
 import { ListWrapper } from './ListStyles';
 
-
-
 interface Props {
     listTitle: string,
     tasks: Array<string | number>,
     listId: string | number,
     index: number,
 }
-
-
 
 const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listId, index }) => {
     const [addTask, setAddTask] = useState(false);
@@ -91,10 +87,8 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
                     </Droppable>
                 </div>
             )}
-
-
         </Draggable>
     )
-}
+};
 
 export default List;

@@ -11,7 +11,6 @@ interface Props {
     content: string | number,
     index: number,
     cardId: string | number,
-
 }
 
 const Wrapper = styled.div`

@@ -5,9 +5,7 @@ import {
 } from "./actionTypes";
 import { Action, cloneObject } from "../utils/utils";
 
-const initialState = {
-
-}
+const initialState = {}
 
 export const listReducer = (state = initialState, action: Action) => {
     const { type, listTitle, listId, payload } = action;
@@ -26,4 +24,4 @@ export const listReducer = (state = initialState, action: Action) => {
         default:
             return state;
     }
-}
+};

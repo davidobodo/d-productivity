@@ -101,15 +101,6 @@ const Root = () => {
       dispatch(sortCard(convertedArray));
 
     }
-    // dispatch(sort(
-    //   source.droppableId,
-    //   destination.droppableId,
-    //   source.index,
-    //   destination.index,
-    //   draggableId,
-    //   dragType
-    // ))
-
   }
 
   const handleSetCloseBoard = () => {

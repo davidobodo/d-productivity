@@ -8,9 +8,9 @@ import { persistStore } from 'redux-persist';
 const persitConfig = {
     key: 'd-productivity',
     storage,
-}
+};
 
-const persistedReducer = persistReducer(persitConfig, rootReducer)
+const persistedReducer = persistReducer(persitConfig, rootReducer);
 
 const store = createStore(persistedReducer);
 
