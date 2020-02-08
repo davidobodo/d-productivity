@@ -53,35 +53,27 @@ const Root = () => {
       lists.splice(destination.index, 0, ...movedList);
 
       const convertedArray = convertArrayToObject2(lists);
-
       dispatch(sortList(convertedArray))
     }
 
     if (source.droppableId === destination.droppableId) {
-      const newStateArray = Object
-        .values(allCards)
+      const newStateArray = Object.values(allCards)
 
-      const activeList = newStateArray
-        .filter(card => card.listId === source.droppableId);
-      const remainingList = newStateArray
-        .filter(card => card.listId !== source.droppableId);
+      const activeList = newStateArray.filter(card => card.listId === source.droppableId);
+      const remainingList = newStateArray.filter(card => card.listId !== source.droppableId);
 
-      //rearrage cards in activeList array
       const movedCard = activeList.splice(source.index, 1);
       activeList.splice(destination.index, 0, ...movedCard);
-
       remainingList.push(...activeList)
 
       const convertedArray = convertArrayToObject(remainingList, 'cardId');
-
       dispatch(sortCard(convertedArray))
     }
 
     if (source.droppableId !== destination.droppableId) {
-      const newState = allCards;
-      newState[draggableId].listId = destination.droppableId;
+      const newStateArray = Object.values(allCards);
 
-      const newStateArray = Object.values(newState);
+      allCards[draggableId].listId = destination.droppableId;
 
       const activeList = newStateArray.filter(card => card.listId === destination.droppableId);
       const remainingList = newStateArray.filter(card => card.listId !== destination.droppableId);
@@ -92,14 +84,11 @@ const Root = () => {
 
       const movedCardIndex = activeList.findIndex(handleGetIndex)
       const movedCard = activeList.splice(movedCardIndex, 1);
-
       activeList.splice(destination.index, 0, ...movedCard);
       remainingList.push(...activeList)
 
       const convertedArray = convertArrayToObject(remainingList, 'cardId');
-
       dispatch(sortCard(convertedArray));
-
     }
   }
 
