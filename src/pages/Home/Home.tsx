@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HomeWrapper } from './HomeStyles';
 import { HomeProps } from '../../utils/utils'
 
 const Home: React.FunctionComponent<HomeProps> = ({ openBoard, handleSetOpenBoard, handleSetCloseBoard }) => {
+    const [height, setHeight] = useState();
+    const ref: any = useRef(null);
+
+
+    useEffect(() => {
+        if (ref) {
+            console.log('i ran')
+            setHeight(ref.current.offsetHeight);
+        }
+    }, []);
+
+    console.log(height);
+
     return (
-        <HomeWrapper openBoard={openBoard}>
+        <HomeWrapper openBoard={openBoard} ref={ref}>
             <div className="section-one">
                 <h2>Welcome to d-productivity</h2>
             </div>
@@ -112,6 +125,9 @@ const Home: React.FunctionComponent<HomeProps> = ({ openBoard, handleSetOpenBoar
                 onClick={handleSetCloseBoard}>Close</button>
         </HomeWrapper>
     )
+
+
+
 }
 
 export default Home;

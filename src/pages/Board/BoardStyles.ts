@@ -5,7 +5,7 @@ export const Wrapper = styled.div<HomeProps>`
 position: absolute;
 z-index: 2;
 height: calc(100vh - 80px);
-min-height: 750px;
+
 width: calc(100vw - 60px);
 padding-top: 5rem;
 padding-left: 5rem;
@@ -17,6 +17,7 @@ overflow-x: scroll;
 
 @media(max-width: 765px){
   padding-left: 3rem;
+  min-height: 750px;
 }
 
 ${({ closeBoard }) => closeBoard && 'animation: close-anim-shake 1s ease-in-out;'}
