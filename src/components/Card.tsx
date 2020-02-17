@@ -10,6 +10,7 @@ interface Props {
     content: string | number,
     index: number,
     cardId: string | number,
+
 }
 
 const Wrapper = styled.div`
@@ -48,8 +49,16 @@ const Card: React.FunctionComponent<Props> = ({ content, index, cardId }) => {
         dispatch(deleteCard(cardId))
     }
 
+    const handleDragStart = (e: any) => {
+        e.target.style.opacity = '0.3';
+        e.dataTransfer.setData("id", cardId);
+        e.dataTransfer.dropEffect = 'move';
+    }
+
     return (
         <Wrapper
+            draggable
+            onDragStart={handleDragStart}
         >
             <span>{content}</span>
             <FontAwesomeIcon icon={faPlus} onClick={handleDeleteTask} />

@@ -9,12 +9,10 @@ const Home: React.FunctionComponent<HomeProps> = ({ openBoard, handleSetOpenBoar
 
     useEffect(() => {
         if (ref) {
-            console.log('i ran')
             setHeight(ref.current.offsetHeight);
         }
     }, []);
 
-    console.log(height);
 
     return (
         <HomeWrapper openBoard={openBoard} ref={ref}>

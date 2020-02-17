@@ -44,13 +44,37 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
         allCards
     } = useSelector((state: myState) => ({
         allCards: state.cards,
-    }), shallowEqual)
+    }), shallowEqual);
+
+
+
+    const handleDragOver = (e: any) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        console.log('on drag over')
+    }
+
+    const handleDragEnter = () => {
+    }
+
+    const handleDragEnd = (e: any) => {
+    }
+
+    const handleOnDrop = (e: any) => {
+        console.log('dropped');
+        const data = e.dataTransfer.getData("id");
+        console.log(data)
+    }
 
 
 
     return (
 
         <ListWrapper
+            onDrop={handleOnDrop}
+            onDragOver={handleDragOver}
+            onDragEnter={handleDragEnter}
+            onDragEnd={handleDragEnd}
         >
             <div className='List__title'>
                 <span className='List__title__header'>{listTitle}</span>
