@@ -51,7 +51,6 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
     const handleDragOver = (e: any) => {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
-        console.log('on drag over')
     }
 
     const handleDragEnter = () => {
@@ -63,7 +62,9 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
     const handleOnDrop = (e: any) => {
         console.log('dropped');
         const movedCard = e.dataTransfer.getData("id");
+        const movedCardSourceIndex = e.dataTransfer.getData("movedCardSourceIndex");
         const sourceList = e.dataTransfer.getData("sourceListId");
+        console.log(movedCardSourceIndex);
     }
 
 

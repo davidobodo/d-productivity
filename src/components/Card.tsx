@@ -53,6 +53,7 @@ const Card: React.FunctionComponent<Props> = ({ content, index, cardId, listId }
     const handleDragStart = (e: any) => {
         e.target.style.opacity = '0.3';
         e.dataTransfer.setData("id", cardId);
+        e.dataTransfer.setData("movedCardSourceIndex", index)
         e.dataTransfer.setData("sourceListId", listId);
         e.dataTransfer.dropEffect = 'move';
     }
