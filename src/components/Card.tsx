@@ -10,6 +10,7 @@ interface Props {
     content: string | number,
     index: number,
     cardId: string | number,
+    listId: string | number
 
 }
 
@@ -42,7 +43,7 @@ const Wrapper = styled.div`
 
 
 
-const Card: React.FunctionComponent<Props> = ({ content, index, cardId }) => {
+const Card: React.FunctionComponent<Props> = ({ content, index, cardId, listId }) => {
     const dispatch = useDispatch();
 
     const handleDeleteTask = () => {
@@ -52,6 +53,7 @@ const Card: React.FunctionComponent<Props> = ({ content, index, cardId }) => {
     const handleDragStart = (e: any) => {
         e.target.style.opacity = '0.3';
         e.dataTransfer.setData("id", cardId);
+        e.dataTransfer.setData("sourceListId", listId);
         e.dataTransfer.dropEffect = 'move';
     }
 

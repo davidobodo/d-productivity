@@ -62,8 +62,8 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
 
     const handleOnDrop = (e: any) => {
         console.log('dropped');
-        const data = e.dataTransfer.getData("id");
-        console.log(data)
+        const movedCard = e.dataTransfer.getData("id");
+        const sourceList = e.dataTransfer.getData("sourceListId");
     }
 
 
@@ -83,7 +83,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
             {allCards && Object
                 .values(allCards)
                 .filter(task => listId === task.listId)
-                .map(({ cardId, cardDetails }, i) => <Card key={cardId} content={cardDetails} index={i} cardId={cardId} />)}
+                .map(({ cardId, cardDetails, listId }, i) => <Card key={cardId} content={cardDetails} index={i} cardId={cardId} listId={listId} />)}
             {addTask &&
                 <TextArea
                     handleShowTextArea={handleAddCard}
