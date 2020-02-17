@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { DragDropContext } from 'react-beautiful-dnd';
 import { createGlobalStyle } from 'styled-components';
 import Board from './pages/Board/Board';
 import Home from './pages/Home/Home';
@@ -97,7 +96,7 @@ const Root = () => {
   }
 
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
+    <>
       <GlobalStyles />
       <Board
         openBoard={openBoard}
@@ -106,7 +105,7 @@ const Root = () => {
         openBoard={openBoard}
         handleSetOpenBoard={() => setOpenBoard(true)}
         handleSetCloseBoard={handleSetCloseBoard} />
-    </DragDropContext>
+    </>
   )
 }
 

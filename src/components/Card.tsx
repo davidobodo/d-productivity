@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Draggable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
 import { deleteCard } from '../store/actions';
 
@@ -50,17 +49,11 @@ const Card: React.FunctionComponent<Props> = ({ content, index, cardId }) => {
     }
 
     return (
-        <Draggable draggableId={String(cardId)} index={index}>
-            {provided => (
-                <Wrapper
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}>
-                    <span>{content}</span>
-                    <FontAwesomeIcon icon={faPlus} onClick={handleDeleteTask} />
-                </Wrapper>
-            )}
-        </Draggable>
+        <Wrapper
+        >
+            <span>{content}</span>
+            <FontAwesomeIcon icon={faPlus} onClick={handleDeleteTask} />
+        </Wrapper>
     )
 }
 
