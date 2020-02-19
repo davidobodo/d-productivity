@@ -8,9 +8,11 @@ import { deleteCard } from '../store/actions';
 
 interface Props {
     content: string | number,
-    index: number,
+    cardIndex: number,
     cardId: string | number,
-    listId: string | number
+    listId: string | number,
+    handleDragStart: any,
+    handleDragOverCard: any,
 
 }
 
@@ -43,26 +45,17 @@ const Wrapper = styled.div`
 
 
 
-const Card: React.FunctionComponent<Props> = ({ content, index, cardId, listId }) => {
+const Card: React.FunctionComponent<Props> = ({ content, cardIndex, cardId, listId, handleDragStart, handleDragOverCard }) => {
     const dispatch = useDispatch();
 
     const handleDeleteTask = () => {
         dispatch(deleteCard(cardId))
     }
 
-    const handleDragStart = (e: any) => {
-        e.target.style.opacity = '0.3';
-        e.dataTransfer.setData("id", cardId);
-        e.dataTransfer.setData("movedCardSourceIndex", index)
-        e.dataTransfer.setData("sourceListId", listId);
-        e.dataTransfer.dropEffect = 'move';
-    }
+
 
     return (
-        <Wrapper
-            draggable
-            onDragStart={handleDragStart}
-        >
+        <Wrapper draggable onDragStart={handleDragStart} onDragOver={handleDragOverCard}>
             <span>{content}</span>
             <FontAwesomeIcon icon={faPlus} onClick={handleDeleteTask} />
         </Wrapper>

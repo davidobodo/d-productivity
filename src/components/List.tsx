@@ -22,21 +22,23 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
     const [cardDetails, setCardDetails] = useState('');
     const dispatch = useDispatch();
 
-    const handleAddCard = () => {
+    let destinationIndex: number;
+
+    const handleAddCard = (): void => {
         setAddTask(!addTask);
     }
 
-    const handleSetTaskDetails = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleSetTaskDetails = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
         setCardDetails(event.target.value)
     }
 
-    const handleSubmitCard = () => {
+    const handleSubmitCard = (): void => {
         const cardId = uuidv4()
         dispatch(createCard(cardId, cardDetails, listId));
         handleAddCard();
     }
 
-    const handleDeleteList = () => {
+    const handleDeleteList = (): void => {
         dispatch(deleteList(listId))
     }
 
@@ -46,35 +48,47 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
         allCards: state.cards,
     }), shallowEqual);
 
-
-
-    const handleDragOver = (e: any) => {
-        e.preventDefault();
+    const handleDragStart = (e: any, cardId: number | string, cardIndex: number): void => {
+        e.target.style.opacity = '0.3';
+        e.dataTransfer.setData("id", cardId);
+        e.dataTransfer.setData("movedCardSourceIndex", cardIndex)
+        e.dataTransfer.setData("sourceListId", listId);
         e.dataTransfer.dropEffect = 'move';
     }
 
-    const handleDragEnter = () => {
+    const handleDragEnter = (e: any): void => {
+        e.preventDefault();
     }
 
-    const handleDragEnd = (e: any) => {
+    const handleDragOverCard = (e: any, cardId: number | string, cardIndex: number): void => {
+        e.preventDefault();
+        destinationIndex = cardIndex;
+        e.dataTransfer.dropEffect = 'move';
     }
 
-    const handleOnDrop = (e: any) => {
-        console.log('dropped');
+    const handleOnDrop = (e: any): void => {
+        e.preventDefault();
+        console.log(destinationIndex)
         const movedCard = e.dataTransfer.getData("id");
         const movedCardSourceIndex = e.dataTransfer.getData("movedCardSourceIndex");
         const sourceList = e.dataTransfer.getData("sourceListId");
-        console.log(movedCardSourceIndex);
+        const destination = e.dataTransfer.getData("destinationIndex")
     }
 
+    const handleDragEnd = (e: any) => {
+        e.preventDefault();
+    }
 
+    const handleDragLeave = () => {
+    }
 
     return (
 
         <ListWrapper
-            onDrop={handleOnDrop}
-            onDragOver={handleDragOver}
             onDragEnter={handleDragEnter}
+            // onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleOnDrop}
             onDragEnd={handleDragEnd}
         >
             <div className='List__title'>
@@ -84,7 +98,15 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
             {allCards && Object
                 .values(allCards)
                 .filter(task => listId === task.listId)
-                .map(({ cardId, cardDetails, listId }, i) => <Card key={cardId} content={cardDetails} index={i} cardId={cardId} listId={listId} />)}
+                .map(({ cardId, cardDetails, listId }, i) => <Card
+                    key={cardId}
+                    content={cardDetails}
+                    cardIndex={i}
+                    cardId={cardId}
+                    listId={listId}
+                    handleDragStart={(e: MouseEvent) => handleDragStart(e, cardId, i)}
+                    handleDragOverCard={(e: MouseEvent) => handleDragOverCard(e, cardId, i)}
+                />)}
             {addTask &&
                 <TextArea
                     handleShowTextArea={handleAddCard}
