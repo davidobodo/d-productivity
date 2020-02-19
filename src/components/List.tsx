@@ -9,6 +9,7 @@ import uuidv4 from 'uuid';
 import Card from './Card';
 import TextArea from './TextArea';
 import { ListWrapper } from './ListStyles';
+import { string } from 'prop-types';
 
 interface Props {
     listTitle: string,
@@ -22,7 +23,11 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
     const [cardDetails, setCardDetails] = useState('');
     const dispatch = useDispatch();
 
-    let destinationIndex: number;
+    let movedCardSourceIndex: number;
+    let movedCardDestinationIndex: number;
+    let movedCardId: number | string;
+    let sourceListId: number | string;
+    let destinationListId: number | string;
 
     const handleAddCard = (): void => {
         setAddTask(!addTask);
@@ -60,19 +65,19 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
         e.preventDefault();
     }
 
-    const handleDragOverCard = (e: any, cardId: number | string, cardIndex: number): void => {
+    const handleDragOverCard = (e: any, listId: number | string, cardIndex: number): void => {
         e.preventDefault();
-        destinationIndex = cardIndex;
+        movedCardDestinationIndex = cardIndex;
+        destinationListId = listId;
         e.dataTransfer.dropEffect = 'move';
     }
 
     const handleOnDrop = (e: any): void => {
         e.preventDefault();
-        console.log(destinationIndex)
-        const movedCard = e.dataTransfer.getData("id");
-        const movedCardSourceIndex = e.dataTransfer.getData("movedCardSourceIndex");
-        const sourceList = e.dataTransfer.getData("sourceListId");
-        const destination = e.dataTransfer.getData("destinationIndex")
+        movedCardId = e.dataTransfer.getData("id");
+        movedCardSourceIndex = e.dataTransfer.getData("movedCardSourceIndex");
+        sourceListId = e.dataTransfer.getData("sourceListId");
+        console.log(sourceListId, destinationListId)
     }
 
     const handleDragEnd = (e: any) => {
@@ -83,7 +88,6 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
     }
 
     return (
-
         <ListWrapper
             onDragEnter={handleDragEnter}
             // onDragOver={handleDragOver}
@@ -105,7 +109,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
                     cardId={cardId}
                     listId={listId}
                     handleDragStart={(e: MouseEvent) => handleDragStart(e, cardId, i)}
-                    handleDragOverCard={(e: MouseEvent) => handleDragOverCard(e, cardId, i)}
+                    handleDragOverCard={(e: MouseEvent) => handleDragOverCard(e, listId, i)}
                 />)}
             {addTask &&
                 <TextArea
@@ -118,7 +122,6 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
                 <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
             </button>
         </ListWrapper>
-
     )
 };
 
