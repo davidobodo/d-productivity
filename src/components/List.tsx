@@ -132,6 +132,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
             onDragLeave={handleDragLeave}
             onDrop={handleOnDrop}
             onDragEnd={handleDragEnd}
+            draggable
         >
             <div className='List__title'>
                 <span className='List__title__header'>{listTitle}</span>

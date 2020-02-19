@@ -37,7 +37,10 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
   }), shallowEqual)
 
   return (
-    <Wrapper openBoard={openBoard} closeBoard={closeBoard}>
+    <Wrapper
+      openBoard={openBoard}
+      closeBoard={closeBoard}
+    >
       <header>d-Productivity</header>
       <div className='cards'>
         {lists && Object.entries(lists).map((list, i) => {

@@ -53,41 +53,6 @@ const Root = () => {
       const convertedArray = convertArrayToObject2(lists);
       dispatch(sortList(convertedArray))
     }
-
-    if (source.droppableId === destination.droppableId) {
-      const newStateArray = Object.values(allCards)
-
-      const activeList = newStateArray.filter(card => card.listId === source.droppableId);
-      const remainingList = newStateArray.filter(card => card.listId !== source.droppableId);
-
-      const movedCard = activeList.splice(source.index, 1);
-      activeList.splice(destination.index, 0, ...movedCard);
-      remainingList.push(...activeList)
-
-      const convertedArray = convertArrayToObject(remainingList, 'cardId');
-      dispatch(sortCard(convertedArray))
-    }
-
-    if (source.droppableId !== destination.droppableId) {
-      const newStateArray = Object.values(allCards);
-
-      allCards[draggableId].listId = destination.droppableId;
-
-      const activeList = newStateArray.filter(card => card.listId === destination.droppableId);
-      const remainingList = newStateArray.filter(card => card.listId !== destination.droppableId);
-
-      const handleGetIndex = (card: any) => {
-        return card.cardId === draggableId
-      }
-
-      const movedCardIndex = activeList.findIndex(handleGetIndex)
-      const movedCard = activeList.splice(movedCardIndex, 1);
-      activeList.splice(destination.index, 0, ...movedCard);
-      remainingList.push(...activeList)
-
-      const convertedArray = convertArrayToObject(remainingList, 'cardId');
-      dispatch(sortCard(convertedArray));
-    }
   }
 
   const handleSetCloseBoard = () => {
