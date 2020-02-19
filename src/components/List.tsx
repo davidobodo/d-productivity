@@ -3,9 +3,9 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { createCard, deleteList } from '../store/actions';
-import { myState } from '../utils/utils';
+import { myState, convertArrayToObject } from '../utils/utils';
 import uuidv4 from 'uuid';
-
+import { sortCard } from '../store/actions'
 import Card from './Card';
 import TextArea from './TextArea';
 import { ListWrapper } from './ListStyles';
@@ -25,7 +25,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
 
     let movedCardSourceIndex: number;
     let movedCardDestinationIndex: number;
-    let movedCardId: number | string;
+    let movedCardId: any;
     let sourceListId: number | string;
     let destinationListId: number | string;
 
@@ -48,10 +48,12 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
     }
 
     const {
+        allLists,
         allCards
     } = useSelector((state: myState) => ({
+        allLists: state.lists,
         allCards: state.cards,
-    }), shallowEqual);
+    }), shallowEqual)
 
     const handleDragStart = (e: any, cardId: number | string, cardIndex: number): void => {
         e.target.style.opacity = '0.3';
@@ -77,11 +79,46 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
         movedCardId = e.dataTransfer.getData("id");
         movedCardSourceIndex = e.dataTransfer.getData("movedCardSourceIndex");
         sourceListId = e.dataTransfer.getData("sourceListId");
-        console.log(sourceListId, destinationListId)
     }
 
     const handleDragEnd = (e: any) => {
         e.preventDefault();
+        console.log(movedCardId)
+
+        if (sourceListId === destinationListId) {
+            const newStateArray = Object.values(allCards)
+
+            const activeList = newStateArray.filter(card => card.listId === sourceListId);
+            const remainingList = newStateArray.filter(card => card.listId !== sourceListId);
+
+            const movedCard = activeList.splice(movedCardSourceIndex, 1);
+            activeList.splice(movedCardDestinationIndex, 0, ...movedCard);
+            remainingList.push(...activeList)
+
+            const convertedArray = convertArrayToObject(remainingList, 'cardId');
+            dispatch(sortCard(convertedArray))
+        }
+
+        if (sourceListId !== destinationListId) {
+            const newStateArray = Object.values(allCards);
+            console.log(movedCardId)
+            // allCards[movedCardId].listId = destinationListId;
+
+            // const activeList = newStateArray.filter(card => card.listId === destinationListId);
+            // const remainingList = newStateArray.filter(card => card.listId !== destinationListId);
+
+            // const handleGetIndex = (card: any) => {
+            //     return card.cardId === movedCardId
+            // }
+
+            // const movedCardIndex = activeList.findIndex(handleGetIndex)
+            // const movedCard = activeList.splice(movedCardIndex, 1);
+            // activeList.splice(movedCardDestinationIndex, 0, ...movedCard);
+            // remainingList.push(...activeList)
+
+            // const convertedArray = convertArrayToObject(remainingList, 'cardId');
+            // dispatch(sortCard(convertedArray));
+        }
     }
 
     const handleDragLeave = () => {
