@@ -79,11 +79,8 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
         movedCardId = e.dataTransfer.getData("id");
         movedCardSourceIndex = e.dataTransfer.getData("movedCardSourceIndex");
         sourceListId = e.dataTransfer.getData("sourceListId");
-    }
-
-    const handleDragEnd = (e: any) => {
-        e.preventDefault();
-        console.log(movedCardId)
+        console.log(
+            'onDrop', movedCardSourceIndex, movedCardId)
 
         if (sourceListId === destinationListId) {
             const newStateArray = Object.values(allCards)
@@ -101,24 +98,28 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
 
         if (sourceListId !== destinationListId) {
             const newStateArray = Object.values(allCards);
-            console.log(movedCardId)
-            // allCards[movedCardId].listId = destinationListId;
+            allCards[movedCardId].listId = destinationListId;
 
-            // const activeList = newStateArray.filter(card => card.listId === destinationListId);
-            // const remainingList = newStateArray.filter(card => card.listId !== destinationListId);
+            const activeList = newStateArray.filter(card => card.listId === destinationListId);
+            const remainingList = newStateArray.filter(card => card.listId !== destinationListId);
 
-            // const handleGetIndex = (card: any) => {
-            //     return card.cardId === movedCardId
-            // }
+            const handleGetIndex = (card: any) => {
+                return card.cardId === movedCardId
+            }
 
-            // const movedCardIndex = activeList.findIndex(handleGetIndex)
-            // const movedCard = activeList.splice(movedCardIndex, 1);
-            // activeList.splice(movedCardDestinationIndex, 0, ...movedCard);
-            // remainingList.push(...activeList)
+            const movedCardIndex = activeList.findIndex(handleGetIndex)
+            const movedCard = activeList.splice(movedCardIndex, 1);
+            activeList.splice(movedCardDestinationIndex, 0, ...movedCard);
+            remainingList.push(...activeList)
 
-            // const convertedArray = convertArrayToObject(remainingList, 'cardId');
-            // dispatch(sortCard(convertedArray));
+            const convertedArray = convertArrayToObject(remainingList, 'cardId');
+            dispatch(sortCard(convertedArray));
         }
+    }
+
+    const handleDragEnd = (e: any) => {
+        e.preventDefault();
+        // Not able to access movedCardId and some other variables inside this function
     }
 
     const handleDragLeave = () => {
