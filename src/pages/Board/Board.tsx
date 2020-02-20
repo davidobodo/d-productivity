@@ -6,15 +6,21 @@ import { Wrapper } from './BoardStyles';
 import uuidv4 from 'uuid';
 import List from '../../components/List';
 import { createList } from '../../store/actions';
-import { myState } from '../../utils/utils';
-import { HomeProps } from '../../utils/utils'
+import { myState, convertArrayToObject2 } from '../../utils/utils';
+import { HomeProps } from '../../utils/utils';
+import { sortList } from '../../store/actions';
 
 const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) => {
   const [listTitle, setListTitle] = useState();
-
   const [addList, setAddList] = useState(false);
-
   const dispatch = useDispatch();
+  const lists = useSelector((state: myState) => state.lists, shallowEqual);
+
+  let dragType: string;
+  let movedListId: any;
+  let movedListSourceIndex: number;
+  let movedListDestinationIndex: number;
+  let des
 
   const handleSetSectionTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setListTitle(event.target.value)
@@ -30,16 +36,46 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
     setAddList(true)
   }
 
-  const {
-    lists
-  } = useSelector((state: myState) => ({
-    lists: state.lists,
-  }), shallowEqual)
+  const handleDragStartList = (e: any, listId: number | string, listIndex: number): void => {
+    e.target.style.opacity = '0.3';
+    e.dataTransfer.setData("id", listId);
+    e.dataTransfer.setData("movedListSourceIndex", listIndex)
+    e.dataTransfer.dropEffect = 'move';
+    e.dataTransfer.setData("dragType", "list");
+  }
+
+  const handleDragOverList = (e: any, listId: number | string, listIndex: number): void => {
+    e.preventDefault();
+    movedListDestinationIndex = listIndex;
+    e.dataTransfer.dropEffect = 'move';
+  }
+
+
+  const handleOnDropList = (e: any): void => {
+    e.preventDefault();
+    movedListId = e.dataTransfer.getData("id");
+    movedListSourceIndex = e.dataTransfer.getData("movedListSourceIndex");
+    dragType = e.dataTransfer.getData("dragType");
+
+    if (dragType !== "list") {
+      return;
+    }
+
+    const _lists = Object.entries(lists);
+    const movedList = _lists.splice(movedListSourceIndex, 1);
+    _lists.splice(movedListDestinationIndex, 0, ...movedList);
+
+    const convertedArray = convertArrayToObject2(_lists);
+    dispatch(sortList(convertedArray))
+  }
+
+
 
   return (
     <Wrapper
       openBoard={openBoard}
       closeBoard={closeBoard}
+      onDrop={handleOnDropList}
     >
       <header>d-Productivity</header>
       <div className='cards'>
@@ -48,7 +84,9 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
             key={list[0]}
             listTitle={list[1]}
             listId={list[0]}
-            index={i} />
+            index={i}
+            handleDragStartList={(e: MouseEvent) => handleDragStartList(e, list[0], i)}
+            handleDragOverList={(e: MouseEvent) => handleDragOverList(e, list[0], i)} />
         })}
         {addList &&
           <div className='list-title'>

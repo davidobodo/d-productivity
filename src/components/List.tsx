@@ -9,25 +9,37 @@ import { sortCard } from '../store/actions'
 import Card from './Card';
 import TextArea from './TextArea';
 import { ListWrapper } from './ListStyles';
-import { string } from 'prop-types';
 
 interface Props {
     listTitle: string,
     tasks: Array<string | number>,
     listId: string | number,
     index: number,
+    handleDragStartList: any,
+    handleDragOverList: any,
 }
 
-const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listId, index }) => {
+const List: React.FunctionComponent<Partial<Props>> = ({
+    listTitle,
+    tasks,
+    listId,
+    index,
+    handleDragStartList,
+    handleDragOverList
+}) => {
     const [addTask, setAddTask] = useState(false);
     const [cardDetails, setCardDetails] = useState('');
     const dispatch = useDispatch();
+    const allCards = useSelector((state: myState) => state.cards, shallowEqual)
 
+
+    let dragType: string;
     let movedCardSourceIndex: number;
     let movedCardDestinationIndex: number;
     let movedCardId: any;
     let sourceListId: number | string;
     let destinationListId: number | string;
+
 
     const handleAddCard = (): void => {
         setAddTask(!addTask);
@@ -47,20 +59,13 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
         dispatch(deleteList(listId))
     }
 
-    const {
-        allLists,
-        allCards
-    } = useSelector((state: myState) => ({
-        allLists: state.lists,
-        allCards: state.cards,
-    }), shallowEqual)
-
     const handleDragStart = (e: any, cardId: number | string, cardIndex: number): void => {
         e.target.style.opacity = '0.3';
         e.dataTransfer.setData("id", cardId);
         e.dataTransfer.setData("movedCardSourceIndex", cardIndex)
         e.dataTransfer.setData("sourceListId", listId);
         e.dataTransfer.dropEffect = 'move';
+        e.dataTransfer.setData("dragType", "card");
     }
 
     const handleDragEnter = (e: any): void => {
@@ -79,8 +84,11 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
         movedCardId = e.dataTransfer.getData("id");
         movedCardSourceIndex = e.dataTransfer.getData("movedCardSourceIndex");
         sourceListId = e.dataTransfer.getData("sourceListId");
-        console.log(
-            'onDrop', movedCardSourceIndex, movedCardId)
+        dragType = e.dataTransfer.getData("dragType");
+
+        if (dragType !== "card") {
+            return;
+        }
 
         if (sourceListId === destinationListId) {
             const newStateArray = Object.values(allCards)
@@ -128,11 +136,13 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
     return (
         <ListWrapper
             onDragEnter={handleDragEnter}
-            // onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleOnDrop}
             onDragEnd={handleDragEnd}
             draggable
+            onDragStart={handleDragStartList}
+            onDragOver={handleDragOverList}
+
         >
             <div className='List__title'>
                 <span className='List__title__header'>{listTitle}</span>
