@@ -11,7 +11,7 @@ interface Props {
     cardIndex: number,
     cardId: string | number,
     listId: string | number,
-    handleDragStart: any,
+    handleDragStartCard: any,
     handleDragOverCard: any,
 
 }
@@ -45,7 +45,14 @@ const Wrapper = styled.div`
 
 
 
-const Card: React.FunctionComponent<Props> = ({ content, cardIndex, cardId, listId, handleDragStart, handleDragOverCard }) => {
+const Card: React.FunctionComponent<Props> = ({
+    content,
+    cardIndex,
+    cardId,
+    listId,
+    handleDragStartCard,
+    handleDragOverCard
+}) => {
     const dispatch = useDispatch();
 
     const handleDeleteTask = () => {
@@ -55,7 +62,7 @@ const Card: React.FunctionComponent<Props> = ({ content, cardIndex, cardId, list
 
 
     return (
-        <Wrapper draggable onDragStart={handleDragStart} onDragOver={handleDragOverCard}>
+        <Wrapper draggable onDragStart={handleDragStartCard} onDragOver={handleDragOverCard}>
             <span>{content}</span>
             <FontAwesomeIcon icon={faPlus} onClick={handleDeleteTask} />
         </Wrapper>

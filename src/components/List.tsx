@@ -9,6 +9,7 @@ import { sortCard } from '../store/actions'
 import Card from './Card';
 import TextArea from './TextArea';
 import { ListWrapper } from './ListStyles';
+import { isArgumentPlaceholder } from '@babel/types';
 
 interface Props {
     listTitle: string,
@@ -33,7 +34,8 @@ const List: React.FunctionComponent<Partial<Props>> = ({
     const allCards = useSelector((state: myState) => state.cards, shallowEqual)
 
 
-    let dragType: string;
+    let dragTypeList: string;
+    let dragTypeCard: string;
     let movedCardSourceIndex: number;
     let movedCardDestinationIndex: number;
     let movedCardId: any;
@@ -59,16 +61,16 @@ const List: React.FunctionComponent<Partial<Props>> = ({
         dispatch(deleteList(listId))
     }
 
-    const handleDragStart = (e: any, cardId: number | string, cardIndex: number): void => {
+    const handleDragStartCard = (e: any, cardId: number | string, cardIndex: number): void => {
         e.target.style.opacity = '0.3';
-        e.dataTransfer.setData("id", cardId);
+        e.dataTransfer.setData("cardId", cardId);
         e.dataTransfer.setData("movedCardSourceIndex", cardIndex)
         e.dataTransfer.setData("sourceListId", listId);
         e.dataTransfer.dropEffect = 'move';
-        e.dataTransfer.setData("dragType", "card");
+        e.dataTransfer.setData("dragTypeCard", "card");
     }
 
-    const handleDragEnter = (e: any): void => {
+    const handleDragEnterCard = (e: any): void => {
         e.preventDefault();
     }
 
@@ -79,14 +81,15 @@ const List: React.FunctionComponent<Partial<Props>> = ({
         e.dataTransfer.dropEffect = 'move';
     }
 
-    const handleOnDrop = (e: any): void => {
+    const handleOnDropCard = (e: any): void => {
         e.preventDefault();
-        movedCardId = e.dataTransfer.getData("id");
+        movedCardId = e.dataTransfer.getData("cardId");
         movedCardSourceIndex = e.dataTransfer.getData("movedCardSourceIndex");
         sourceListId = e.dataTransfer.getData("sourceListId");
-        dragType = e.dataTransfer.getData("dragType");
+        dragTypeList = e.dataTransfer.getData("dragTypeList");
+        dragTypeCard = e.dataTransfer.getData("dragTypeCard");
 
-        if (dragType !== "card") {
+        if (dragTypeCard == "") {
             return;
         }
 
@@ -125,24 +128,15 @@ const List: React.FunctionComponent<Partial<Props>> = ({
         }
     }
 
-    const handleDragEnd = (e: any) => {
-        e.preventDefault();
-        // Not able to access movedCardId and some other variables inside this function
-    }
 
-    const handleDragLeave = () => {
-    }
 
     return (
         <ListWrapper
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDrop={handleOnDrop}
-            onDragEnd={handleDragEnd}
+            onDragEnter={handleDragEnterCard}
+            onDrop={handleOnDropCard}
             draggable
             onDragStart={handleDragStartList}
             onDragOver={handleDragOverList}
-
         >
             <div className='List__title'>
                 <span className='List__title__header'>{listTitle}</span>
@@ -157,7 +151,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({
                     cardIndex={i}
                     cardId={cardId}
                     listId={listId}
-                    handleDragStart={(e: MouseEvent) => handleDragStart(e, cardId, i)}
+                    handleDragStartCard={(e: MouseEvent) => handleDragStartCard(e, cardId, i)}
                     handleDragOverCard={(e: MouseEvent) => handleDragOverCard(e, listId, i)}
                 />)}
             {addTask &&

@@ -3,8 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { createGlobalStyle } from 'styled-components';
 import Board from './pages/Board/Board';
 import Home from './pages/Home/Home';
-import { sortCard, sortList } from './store/actions';
-import { myState, convertArrayToObject, convertArrayToObject2 } from './utils/utils';
+import { myState } from './utils/utils';
 
 const GlobalStyles = createGlobalStyle`
   *, 
@@ -37,23 +36,6 @@ const Root = () => {
     allLists: state.lists,
     allCards: state.cards,
   }), shallowEqual)
-
-  const handleOnDragEnd = (result: any) => {
-    const { destination, source, draggableId, type: dragType } = result;
-
-    if (!destination) {
-      return;
-    }
-
-    if (dragType === "list") {
-      const lists = Object.entries(allLists);
-      const movedList = lists.splice(source.index, 1);
-      lists.splice(destination.index, 0, ...movedList);
-
-      const convertedArray = convertArrayToObject2(lists);
-      dispatch(sortList(convertedArray))
-    }
-  }
 
   const handleSetCloseBoard = () => {
     setCloseBoard(true)

@@ -16,11 +16,10 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
   const dispatch = useDispatch();
   const lists = useSelector((state: myState) => state.lists, shallowEqual);
 
-  let dragType: string;
+  let dragTypeCard: string;
   let movedListId: any;
   let movedListSourceIndex: number;
   let movedListDestinationIndex: number;
-  let des
 
   const handleSetSectionTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setListTitle(event.target.value)
@@ -38,10 +37,10 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
 
   const handleDragStartList = (e: any, listId: number | string, listIndex: number): void => {
     e.target.style.opacity = '0.3';
-    e.dataTransfer.setData("id", listId);
+    e.dataTransfer.setData("listId", listId);
     e.dataTransfer.setData("movedListSourceIndex", listIndex)
     e.dataTransfer.dropEffect = 'move';
-    e.dataTransfer.setData("dragType", "list");
+    e.dataTransfer.setData("dragTypeList", "list");
   }
 
   const handleDragOverList = (e: any, listId: number | string, listIndex: number): void => {
@@ -50,14 +49,13 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
     e.dataTransfer.dropEffect = 'move';
   }
 
-
   const handleOnDropList = (e: any): void => {
     e.preventDefault();
-    movedListId = e.dataTransfer.getData("id");
+    movedListId = e.dataTransfer.getData("listId");
     movedListSourceIndex = e.dataTransfer.getData("movedListSourceIndex");
-    dragType = e.dataTransfer.getData("dragType");
+    dragTypeCard = e.dataTransfer.getData("dragTypeCard");
 
-    if (dragType !== "list") {
+    if (dragTypeCard === "card") {
       return;
     }
 
