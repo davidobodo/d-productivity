@@ -18,6 +18,7 @@ const Wrapper = styled.div`
     outline: none;
     cursor: pointer;
     opacity: 0.3;
+    display: none;
 `
 
 const CardPlaceholder: React.FunctionComponent = () => {

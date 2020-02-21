@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { deleteCard } from '../store/actions';
+import CardPlaceholder from './placeholders/cardPlaceholder'
 
 
 interface Props {
@@ -62,10 +63,13 @@ const Card: React.FunctionComponent<Props> = ({
 
 
     return (
-        <Wrapper draggable onDragStart={handleDragStartCard} onDragOver={handleDragOverCard}>
-            <span>{content}</span>
-            <FontAwesomeIcon icon={faPlus} onClick={handleDeleteTask} />
-        </Wrapper>
+        <>
+            <CardPlaceholder />
+            <Wrapper draggable onDragStart={handleDragStartCard} onDragOver={handleDragOverCard}>
+                <span>{content}</span>
+                <FontAwesomeIcon icon={faPlus} onClick={handleDeleteTask} />
+            </Wrapper>
+        </>
     )
 }
 
