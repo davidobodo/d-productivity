@@ -9,7 +9,7 @@ import { sortCard } from '../store/actions'
 import Card from './Card';
 import TextArea from './TextArea';
 import { ListWrapper } from './ListStyles';
-import { isArgumentPlaceholder } from '@babel/types';
+import CardPlaceholder from './placeholders/cardPlaceholder';
 
 interface Props {
     listTitle: string,
@@ -164,6 +164,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({
                     handleDragStartCard={(e: MouseEvent) => handleDragStartCard(e, cardId, i)}
                     handleDragOverCard={(e: MouseEvent) => handleDragOverCard(e, listId, i)}
                 />)}
+            <CardPlaceholder />
             {addTask &&
                 <TextArea
                     handleShowTextArea={handleAddCard}
