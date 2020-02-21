@@ -33,7 +33,6 @@ const List: React.FunctionComponent<Partial<Props>> = ({
     const dispatch = useDispatch();
     const allCards = useSelector((state: myState) => state.cards, shallowEqual)
 
-
     let dragTypeList: string;
     let dragTypeCard: string;
     let movedCardSourceIndex: number;
@@ -62,7 +61,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({
     }
 
     const handleDragStartCard = (e: any, cardId: number | string, cardIndex: number): void => {
-        e.target.style.opacity = '0.3';
+        e.target.style.opacity = "0.3";
         e.dataTransfer.setData("cardId", cardId);
         e.dataTransfer.setData("movedCardSourceIndex", cardIndex)
         e.dataTransfer.setData("sourceListId", listId);
@@ -79,6 +78,12 @@ const List: React.FunctionComponent<Partial<Props>> = ({
         movedCardDestinationIndex = cardIndex;
         destinationListId = listId;
         e.dataTransfer.dropEffect = 'move';
+    }
+
+    const handleOnDragEndCard = (e: any): void => {
+        e.preventDefault();
+        console.log(e.target)
+        e.target.style.opacity = '';
     }
 
     const handleOnDropCard = (e: any): void => {
@@ -125,8 +130,12 @@ const List: React.FunctionComponent<Partial<Props>> = ({
 
             const convertedArray = convertArrayToObject(remainingList, 'cardId');
             dispatch(sortCard(convertedArray));
+            handleOnDragEndCard(e);
         }
+
     }
+
+
 
 
 
@@ -135,6 +144,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({
             onDragEnter={handleDragEnterCard}
             onDrop={handleOnDropCard}
             draggable
+            onDragEnd={handleOnDragEndCard}
             onDragStart={handleDragStartList}
             onDragOver={handleDragOverList}
         >
