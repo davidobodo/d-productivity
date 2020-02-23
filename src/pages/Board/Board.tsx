@@ -69,6 +69,15 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
     movedCardDestinationIndex = cardIndex;
     destinationListId = listId;
     e.dataTransfer.dropEffect = 'move';
+
+    //placeholder login start---------------------------------------------------
+    console.log(movedCardDestinationIndex, destinationListId)
+    const newStateArray = Object.values(allCards)
+    const activeList = newStateArray.filter(card => card.listId === destinationListId);
+    console.log(activeList)
+    activeList.splice(movedCardDestinationIndex, 0);
+
+    //placeholder login end----------------------------------------------------
   }
 
   const handleOnDragEndCard = (e: any): void => {
@@ -152,7 +161,6 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
   const handleDragOverList = (e: any, listId: number | string, listIndex: number): void => {
     e.preventDefault();
     movedListDestinationIndex = listIndex;
-    // console.log('dragging over list', listId, movedCardDestinationIndex)
 
     destinationListId = listId;
 
