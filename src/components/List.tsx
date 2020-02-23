@@ -17,6 +17,11 @@ interface Props {
     index: number,
     handleDragStartList: any,
     handleDragOverList: any,
+    handleDragEnterCard: any,
+    handleOnDropCard: any,
+    handleOnDragEndCard: any,
+    handleDragStartCard: any,
+    handleDragOverCard: any,
 }
 
 const List: React.FunctionComponent<Partial<Props>> = ({
@@ -25,21 +30,17 @@ const List: React.FunctionComponent<Partial<Props>> = ({
     listId,
     index,
     handleDragStartList,
-    handleDragOverList
+    handleDragOverList,
+    handleDragEnterCard,
+    handleOnDropCard,
+    handleOnDragEndCard,
+    handleDragStartCard,
+    handleDragOverCard,
 }) => {
     const [addTask, setAddTask] = useState(false);
     const [cardDetails, setCardDetails] = useState('');
     const dispatch = useDispatch();
     const allCards = useSelector((state: myState) => state.cards, shallowEqual)
-
-    let dragTypeList: string;
-    let dragTypeCard: string;
-    let movedCardSourceIndex: number;
-    let movedCardDestinationIndex: number;
-    let movedCardId: any;
-    let sourceListId: number | string;
-    let destinationListId: number | string;
-
 
     const handleAddCard = (): void => {
         setAddTask(!addTask);
@@ -58,85 +59,6 @@ const List: React.FunctionComponent<Partial<Props>> = ({
     const handleDeleteList = (): void => {
         dispatch(deleteList(listId))
     }
-
-    const handleDragStartCard = (e: any, cardId: number | string, cardIndex: number): void => {
-        e.target.style.opacity = "0.3";
-        e.dataTransfer.setData("cardId", cardId);
-        e.dataTransfer.setData("movedCardSourceIndex", cardIndex)
-        e.dataTransfer.setData("sourceListId", listId);
-        e.dataTransfer.dropEffect = 'move';
-        e.dataTransfer.setData("dragTypeCard", "card");
-    }
-
-    const handleDragEnterCard = (e: any): void => {
-        e.preventDefault();
-    }
-
-    const handleDragOverCard = (e: any, listId: number | string, cardIndex: number): void => {
-        e.preventDefault();
-        movedCardDestinationIndex = cardIndex;
-        destinationListId = listId;
-        e.dataTransfer.dropEffect = 'move';
-    }
-
-    const handleOnDragEndCard = (e: any): void => {
-        e.preventDefault();
-        console.log(e.target)
-        e.target.style.opacity = '';
-    }
-
-    const handleOnDropCard = (e: any): void => {
-        e.preventDefault();
-        movedCardId = e.dataTransfer.getData("cardId");
-        movedCardSourceIndex = e.dataTransfer.getData("movedCardSourceIndex");
-        sourceListId = e.dataTransfer.getData("sourceListId");
-        dragTypeList = e.dataTransfer.getData("dragTypeList");
-        dragTypeCard = e.dataTransfer.getData("dragTypeCard");
-
-        if (dragTypeCard == "") {
-            return;
-        }
-
-        if (sourceListId === destinationListId) {
-            const newStateArray = Object.values(allCards)
-
-            const activeList = newStateArray.filter(card => card.listId === sourceListId);
-            const remainingList = newStateArray.filter(card => card.listId !== sourceListId);
-
-            const movedCard = activeList.splice(movedCardSourceIndex, 1);
-            activeList.splice(movedCardDestinationIndex, 0, ...movedCard);
-            remainingList.push(...activeList)
-
-            const convertedArray = convertArrayToObject(remainingList, 'cardId');
-            dispatch(sortCard(convertedArray))
-        }
-
-        if (sourceListId !== destinationListId) {
-            const newStateArray = Object.values(allCards);
-            allCards[movedCardId].listId = destinationListId;
-
-            const activeList = newStateArray.filter(card => card.listId === destinationListId);
-            const remainingList = newStateArray.filter(card => card.listId !== destinationListId);
-
-            const handleGetIndex = (card: any) => {
-                return card.cardId === movedCardId
-            }
-
-            const movedCardIndex = activeList.findIndex(handleGetIndex)
-            const movedCard = activeList.splice(movedCardIndex, 1);
-            activeList.splice(movedCardDestinationIndex, 0, ...movedCard);
-            remainingList.push(...activeList)
-
-            const convertedArray = convertArrayToObject(remainingList, 'cardId');
-            dispatch(sortCard(convertedArray));
-            handleOnDragEndCard(e);
-        }
-
-    }
-
-
-
-
 
     return (
         <ListWrapper
@@ -160,7 +82,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({
                     cardIndex={i}
                     cardId={cardId}
                     listId={listId}
-                    handleDragStartCard={(e: MouseEvent) => handleDragStartCard(e, cardId, i)}
+                    handleDragStartCard={(e: MouseEvent) => handleDragStartCard(e, cardId, i, listId)}
                     handleDragOverCard={(e: MouseEvent) => handleDragOverCard(e, listId, i)}
                 />)}
             {addTask &&
