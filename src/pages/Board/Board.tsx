@@ -38,8 +38,6 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
 
 
 
-
-
   //--------------------------------------------------------------------
   //--------------------------------------------------------------------
   //--------------------------------------------------------------------
@@ -86,9 +84,6 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
     sourceListId = e.dataTransfer.getData("sourceListId");
     dragTypeList = e.dataTransfer.getData("dragTypeList");
     dragTypeCard = e.dataTransfer.getData("dragTypeCard");
-
-    console.log('sourceListId', sourceListId);
-    console.log('destinationListId', destinationListId);
 
     if (dragTypeCard == "") {
       return;
@@ -156,8 +151,16 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
 
   const handleDragOverList = (e: any, listId: number | string, listIndex: number): void => {
     e.preventDefault();
-    console.log('drag over list')
     movedListDestinationIndex = listIndex;
+    // console.log('dragging over list', listId, movedCardDestinationIndex)
+
+    destinationListId = listId;
+
+    const _list = Object.values(allCards).filter(card => card.listId == listId);
+    if (_list.length == 0) {
+      movedCardDestinationIndex = 0;
+    }
+
     e.dataTransfer.dropEffect = 'move';
   }
 
