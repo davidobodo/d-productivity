@@ -63,35 +63,36 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >
-                    <Droppable droppableId={String(listId)} type="card">
-                        {provided => (
-                            <ListWrapper
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-                                <div className='List__title'>
-                                    <span className='List__title__header'>{listTitle}</span>
-                                    <FontAwesomeIcon icon={faPlus} onClick={handleDeleteList} />
+                    <ListWrapper>
+                        <div className='List__title'>
+                            <span className='List__title__header'>{listTitle}</span>
+                            <FontAwesomeIcon icon={faPlus} onClick={handleDeleteList} />
+                        </div>
+                        <Droppable droppableId={String(listId)} type="card">
+                            {provided => (
+                                <div
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}>
+                                    {allCards && Object
+                                        .values(allCards)
+                                        .filter(task => listId === task.listId)
+                                        .map(({ cardId, cardDetails }, i) => <Card key={cardId} content={cardDetails} index={i} cardId={cardId} />)}
+                                    {addTask &&
+                                        <TextArea
+                                            handleShowTextArea={handleAddCard}
+                                            handleSubmitTextArea={handleSubmitCard}
+                                            handleUpdateTextArea={handleSetTaskDetails}
+                                            handleOnKeyPress={handleOnKeyPress}
+                                            placeholder='Enter details for this task'
+                                            buttonText='Add Card' />}
+                                    {provided.placeholder}
+                                    <button onClick={handleAddCard} className='btn-add-task'>
+                                        <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
+                                    </button>
                                 </div>
-                                {allCards && Object
-                                    .values(allCards)
-                                    .filter(task => listId === task.listId)
-                                    .map(({ cardId, cardDetails }, i) => <Card key={cardId} content={cardDetails} index={i} cardId={cardId} />)}
-                                {addTask &&
-                                    <TextArea
-                                        handleShowTextArea={handleAddCard}
-                                        handleSubmitTextArea={handleSubmitCard}
-                                        handleUpdateTextArea={handleSetTaskDetails}
-                                        handleOnKeyPress={handleOnKeyPress}
-                                        placeholder='Enter details for this task'
-                                        buttonText='Add Card' />}
-                                {provided.placeholder}
-                                <button onClick={handleAddCard} className='btn-add-task'>
-                                    <FontAwesomeIcon icon={faPlus} /><span>Add another card</span>
-                                </button>
-                            </ListWrapper>
-                        )}
-                    </Droppable>
+                            )}
+                        </Droppable>
+                    </ListWrapper>
                 </div>
             )}
         </Draggable>
