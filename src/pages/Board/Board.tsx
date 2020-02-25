@@ -31,6 +31,12 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
     setAddList(true)
   }
 
+  const handleOnKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      handleSubmitList()
+    }
+  }
+
   const {
     lists
   } = useSelector((state: myState) => ({
@@ -60,7 +66,13 @@ const Board: React.FunctionComponent<HomeProps> = ({ openBoard, closeBoard }) =>
             {provided.placeholder}
             {addList &&
               <div className='list-title'>
-                <input type="text" placeholder='Enter list title' onChange={handleSetSectionTitle} autoFocus />
+                <input
+                  type="text"
+                  placeholder='Enter list title'
+                  onChange={handleSetSectionTitle}
+                  onKeyPress={handleOnKeyPress}
+                  autoFocus
+                />
                 <div>
                   <button onClick={handleSubmitList}>Add List</button>
                   <FontAwesomeIcon icon={faPlus} />
