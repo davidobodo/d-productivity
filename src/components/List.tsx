@@ -41,6 +41,12 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
         dispatch(deleteList(listId))
     }
 
+    const handleOnKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            handleSubmitCard()
+        }
+    }
+
     const {
         allCards
     } = useSelector((state: myState) => ({
@@ -76,6 +82,7 @@ const List: React.FunctionComponent<Partial<Props>> = ({ listTitle, tasks, listI
                                         handleShowTextArea={handleAddCard}
                                         handleSubmitTextArea={handleSubmitCard}
                                         handleUpdateTextArea={handleSetTaskDetails}
+                                        handleOnKeyPress={handleOnKeyPress}
                                         placeholder='Enter details for this task'
                                         buttonText='Add Card' />}
                                 {provided.placeholder}

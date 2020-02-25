@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ interface Props {
     handleShowTextArea: any,
     handleSubmitTextArea: any,
     handleUpdateTextArea: any,
+    handleOnKeyPress: any,
     placeholder: string,
     buttonText: string
 }
@@ -65,12 +66,19 @@ const TextArea: React.FunctionComponent<Partial<Props>> = ({
     handleShowTextArea,
     handleSubmitTextArea,
     handleUpdateTextArea,
+    handleOnKeyPress,
     placeholder,
     buttonText
 }) => {
+
     return (
         <Wrapper>
-            <textarea placeholder={placeholder} onChange={handleUpdateTextArea} autoFocus></textarea>
+            <textarea
+                placeholder={placeholder}
+                onChange={handleUpdateTextArea}
+                onKeyPress={handleOnKeyPress}
+                autoFocus
+            ></textarea>
             <div className='controls'>
                 <div>
                     <button onClick={handleSubmitTextArea}>{buttonText}</button>
